@@ -25,11 +25,10 @@ Insert gif or link to demo
 
 ## Installation
 
-Install shopamaee with npm
+Install fb-clone with npm
 
 ```bash
   npm install fb-clone
-  cd fb-clone
 ```
     
 ## Contributing
