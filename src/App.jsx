@@ -1,11 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "components/header";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "routes/Routes";
 
 function App() {
   return (
-    <div className="App">
-      <h2>Facebook - clone</h2>
-    </div>
+    <>
+      <BrowserRouter>
+        {/* Header */}
+        <Header />
+        {/* Body */}
+        <Routes />
+        {/* sidebar */}
+        {/* feeds */}
+        {/* widgets */}
+      </BrowserRouter>
+    </>
   );
 }
 

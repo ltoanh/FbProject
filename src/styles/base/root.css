@@ -1,0 +1,19 @@
+:root{
+  /* background color */
+  --white: #fff;
+  --white-rgb: 255,255,255;
+  
+  --black: #000;
+  --back-rgb: 0, 0, 0;
+  
+  --input-bg: #eff2f5;
+  --input-bg-rgb: 239,242,245;
+
+  --primary-button-background: #2374E1;
+
+  /* color */
+  --secondary-icon: #B0B3B8;
+
+  /* variable */
+  --border-radius: 10px;
+}
