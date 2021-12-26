@@ -9,9 +9,11 @@
   gap: 10px;
 
   transition: all .3s ease;
+
+  border-radius: var(--border-radius);
 }
 .sidebarRow:hover{
-  background-color: rgba(var(--input-bg-rgb), .7);
+  background-color: rgba(var(--secondary-rgb), .7);
 }
 
 .sidebarRow .MuiSvgIcon-root{
