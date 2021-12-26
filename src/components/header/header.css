@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  height: 80px;
+  height: var(--header-height);
 
   position: sticky;
   top: 0;
@@ -53,8 +53,6 @@
   
   color: var(--secondary-icon);
   
-  border-radius: var(--border-radius);
-  
   cursor: pointer;
 
   border: 2px solid transparent;
@@ -72,7 +70,7 @@
   background-color: currentColor;
   opacity: .2;
   
-  border-radius: inherit;
+  border-radius: var(--border-radius);
 }
 .header__middle .header__option.active{
   color: var(--primary-button-background);
