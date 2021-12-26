@@ -13,6 +13,11 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { NavLink } from "react-router-dom";
 
 function Header() {
+  const profile = {
+    profileSrc: 'https://images.pexels.com/photos/8265707/pexels-photo-8265707.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    profileName: 'Tú Oanh',
+  }
+
   return (
     <div className="header">
       <div className="header__left">
@@ -47,8 +52,8 @@ function Header() {
       </div>
       <div className="header__right">
         <div className="header__info">
-          <Avatar />
-          <h4>Tu Oanh</h4>
+          <Avatar src={profile.profileSrc}/>
+          <h4>{profile.profileName}</h4>
         </div>
 
         <IconButton>

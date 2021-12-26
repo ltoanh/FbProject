@@ -4,7 +4,7 @@
   --white-rgb: 255,255,255;
   
   --black: #000;
-  --back-rgb: 0, 0, 0;
+  --black-rgb: 0, 0, 0;
   
   --input-bg: #eff2f5;
   --input-bg-rgb: 239,242,245;
@@ -15,6 +15,7 @@
   --secondary-icon: #B0B3B8;
   --secondary-rgb: 176, 179, 184;
 
+  --secondary-text: #65676B;
   /* variable */
   --border-radius: 10px;
 
