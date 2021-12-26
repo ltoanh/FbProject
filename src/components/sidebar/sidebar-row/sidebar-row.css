@@ -1,0 +1,20 @@
+.sidebarRow {
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+
+  cursor: pointer;
+
+  gap: 10px;
+
+  transition: all .3s ease;
+}
+.sidebarRow:hover{
+  background-color: rgba(var(--input-bg-rgb), .7);
+}
+
+.sidebarRow .MuiSvgIcon-root{
+  color: var(--primary-button-background);
+  font-size: 1.75rem;
+}
