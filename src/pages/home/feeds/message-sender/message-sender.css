@@ -1,0 +1,62 @@
+/* message sender */
+.message-sender {
+  padding: 1rem 1.5rem;
+
+  border-radius: var(--border-radius);
+
+  box-shadow: 0 0 5px rgba(var(--black-rgb), 0.2);
+
+  color: var(--secondary-text);
+}
+
+/* status */
+.status {
+  display: flex;
+  gap: 10px;
+
+  padding-bottom: 1rem;
+
+  border-bottom: 2px solid var(--input-bg);
+}
+.status__input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+
+  font-size: 1rem;
+
+  background-color: var(--input-bg);
+
+  border-radius: var(--border-radius);
+}
+
+/* features */
+.message-sender__features {
+  display: flex;
+  justify-content: space-between;
+}
+.message-sender__option {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+
+  gap: 5px;
+
+  cursor: pointer;
+}
+.message-sender__option:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: currentColor;
+  opacity: 0.2;
+
+  border-radius: var(--border-radius);
+}

@@ -10,11 +10,17 @@ import React from 'react'
 import './sidebar.css';
 
 function Sidebar() {
+  const profile = {
+    profileSrc:
+      "https://images.pexels.com/photos/8265707/pexels-photo-8265707.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    profileName: "Tú Oanh",
+  };
+
   return (
     <div className="sidebar">
       <SidebarRow
-        src="https://scontent.fhan3-2.fna.fbcdn.net/v/t39.30808-6/259773888_995292871049938_6670390183133644059_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=JwJwnJscaKcAX_TzU_I&_nc_ht=scontent.fhan3-2.fna&oh=00_AT_QK3jYCNFGxtHSHR_0y7uupPHmis34fC_YXB_PVmKFIw&oe=61CCCFB7"
-        title="Tú Oanh"
+        src={profile.profileSrc}
+        title={profile.profileName}
       />
       <SidebarRow Icon={PeopleIcon} title="Bạn bè" />
       <SidebarRow Icon={SmartDisplayIcon} title="Watch" />

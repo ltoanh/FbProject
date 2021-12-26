@@ -1,4 +1,5 @@
 import StoryReel from './story-reel';
+import MessageSender from './message-sender';
 
 import React from 'react'
 import './feeds.css';
@@ -6,10 +7,8 @@ import './feeds.css';
 function Feeds() {
   return (
     <div className='feeds'>
-      {/* story */}
       <StoryReel />
-      {/* status sender*/}
-      {/* new feeds */}
+      <MessageSender />
     </div>
   )
 }
