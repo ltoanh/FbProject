@@ -1,0 +1,51 @@
+.center__form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+.sign{
+  width: 500px;
+
+  padding: 3rem 2rem;
+}
+/* logo */
+.sign__logo{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.sign__logo img{
+  height: 50px;
+}
+/* form */
+.sign__form > * ~ *{
+  margin-top: 1.5rem;
+}
+.sign__item label{
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.sign__item input{
+  margin-top: .5rem;
+  padding: .5rem 1rem;
+  width: 100%;
+
+  background-color: var(--input-bg);
+
+  border-radius: var(--border-radius);
+}
+
+/* action */
+.form__actions{
+  display: flex;
+  justify-content: center;
+}
+
+/* other */
+.other__login .MuiButtonBase-root{
+  width: 100%;
+}
