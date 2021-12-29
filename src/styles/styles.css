@@ -40,3 +40,10 @@
 
   border-radius: var(--border-radius);
 }
+
+/* border */
+.border-y{
+  border: 1px solid var(--border-black);
+  border-right-color: transparent;
+  border-left-color: transparent;
+}
