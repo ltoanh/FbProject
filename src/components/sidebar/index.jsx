@@ -18,15 +18,17 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-      <SidebarRow
-        src={profile.profileSrc}
-        title={profile.profileName}
-      />
-      <SidebarRow Icon={PeopleIcon} title="Bạn bè" />
-      <SidebarRow Icon={SmartDisplayIcon} title="Watch" />
-      <SidebarRow Icon={GroupsIcon} title="Nhóm" />
-      <SidebarRow Icon={StorefrontIcon} title="Marketplace" />
-      <SidebarRow Icon={TimelapseIcon} title="Kỷ niệm" />
+      <div className="sidebar__wrapper">
+        <SidebarRow
+          src={profile.profileSrc}
+          title={profile.profileName}
+        />
+        <SidebarRow Icon={PeopleIcon} title="Bạn bè" />
+        <SidebarRow Icon={SmartDisplayIcon} title="Watch" />
+        <SidebarRow Icon={GroupsIcon} title="Nhóm" />
+        <SidebarRow Icon={StorefrontIcon} title="Marketplace" />
+        <SidebarRow Icon={TimelapseIcon} title="Kỷ niệm" />
+      </div>
     </div>
   );
 }
