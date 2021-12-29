@@ -1,0 +1,37 @@
+/* posts list */
+.posts > * ~ *{
+  margin-top: 1.5rem;
+}
+
+/* post item */
+.post{
+  padding: 1rem;
+  color: var(--black);
+}
+
+.post__header{
+  display: flex;
+  gap: 10px;
+}
+
+.post__header__information--name{
+  font-size: 1rem;
+}
+.post__header__information--timestamp{
+  font-size: .75rem;
+  color: var(--secondary-text);
+}
+
+.post__content{
+  margin: .75rem 0;
+}
+.post__content > * ~ * {
+  margin-top: .5rem;
+}
+
+.post__options{
+  border: 1px solid var(--border-black);
+  border-right-color: transparent;
+  border-left-color: transparent;
+  
+}

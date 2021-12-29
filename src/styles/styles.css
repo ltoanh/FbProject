@@ -1,3 +1,42 @@
-@import url('./base/reset.css');
-@import url('./base/variable.css');
-@import url('./base/typography.css');
+@import url("./base/reset.css");
+@import url("./base/variable.css");
+@import url("./base/typography.css");
+
+.post__wrapper {
+  border-radius: var(--border-radius);
+
+  box-shadow: 0 0 5px rgba(var(--black-rgb), 0.2);
+
+  color: var(--secondary-text);
+}
+
+/* features */
+.post__features {
+  display: flex;
+  justify-content: space-between;
+}
+.post__option {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  margin: .3rem 0;
+  gap: 5px;
+
+  cursor: pointer;
+}
+.post__option:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: currentColor;
+  opacity: 0.2;
+
+  border-radius: var(--border-radius);
+}
