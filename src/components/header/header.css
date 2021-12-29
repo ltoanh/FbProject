@@ -5,8 +5,10 @@
   padding: 0.5rem;
   height: var(--header-height);
 
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  width: 100%;
 
   box-shadow: 0px 5px 8px -9px rgba(var(--black-rgb), 0.75);
 
