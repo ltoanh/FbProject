@@ -25,7 +25,7 @@ function Post(props) {
           imageSrc && <img src={imageSrc} alt="" />
         }
       </div>
-      <div className="post__features post__options">
+      <div className="post__features border-y">
         <div className="post__option">
           <ThumbUpOutlinedIcon />
           <span>Thích</span>

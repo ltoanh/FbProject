@@ -3,7 +3,7 @@
   flex-direction: column;
   flex: 2;
   max-width: 800px;
-  padding: 0 .5rem;
+  padding: 0 .5rem 1rem;
 }
 
 .feeds > * ~ * {
