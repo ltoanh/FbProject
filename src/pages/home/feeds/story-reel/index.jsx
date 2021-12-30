@@ -1,10 +1,12 @@
 import React from "react";
 import Story from "./Story";
 import "./story-reel.css";
+import StoryCreator from "./StoryCreator";
 
 function StoryReel() {
   return (
     <div className="story-reel">
+      <StoryCreator />
       <Story
         profileSrc="https://images.pexels.com/users/avatars/3525678/-897.jpeg?auto=compress&fit=crop&h=256&w=256"
         imageSrc="https://images.pexels.com/photos/8642176/pexels-photo-8642176.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"

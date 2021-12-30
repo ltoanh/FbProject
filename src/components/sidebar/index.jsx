@@ -9,19 +9,18 @@ import TimelapseIcon from '@mui/icons-material/Timelapse';
 import React from 'react'
 import './sidebar.css';
 
+import {useSelector} from 'react-redux';
+import { selectorUser } from "slice/userSlice";
+
 function Sidebar() {
-  const profile = {
-    profileSrc:
-      "https://images.pexels.com/photos/8265707/pexels-photo-8265707.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    profileName: "Tú Oanh",
-  };
+  const user = useSelector(selectorUser);
 
   return (
     <div className="sidebar">
       <div className="sidebar__wrapper">
         <SidebarRow
-          src={profile.profileSrc}
-          title={profile.profileName}
+          src={user.profileSrc}
+          title={user.name}
         />
         <SidebarRow Icon={PeopleIcon} title="Bạn bè" />
         <SidebarRow Icon={SmartDisplayIcon} title="Watch" />

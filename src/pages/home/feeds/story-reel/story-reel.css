@@ -19,6 +19,41 @@
   overflow: hidden; /* hide image overflow when overflow */
 
 }
+/* creator */
+.story-creator{
+  position: relative;
+}
+.story-creator__image{
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+}
+.story-creator__add .MuiSvgIcon-root{ 
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: var(--white);
+
+  border: 2px solid var(--white);
+  border-radius: 999px;
+}
+.story-creator__option{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+
+  background-color: var(--white);
+
+  color: var(--black);
+  font-size:.8rem;
+  font-weight: 500;
+}
+/* friend story */
 .story__image{
   display: block;
   position: absolute;
