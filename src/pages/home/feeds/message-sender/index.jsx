@@ -6,18 +6,17 @@ import MoodIcon from '@mui/icons-material/Mood';
 import React from 'react'
 import './message-sender.css';
 
+import {useSelector} from 'react-redux';
+import { selectorUser } from "slice/userSlice";
+
 function MessageSender() {
-  const profile = {
-    src:
-      "https://images.pexels.com/photos/8265707/pexels-photo-8265707.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    name: "Tú Oanh",
-  };
+  const user = useSelector(selectorUser);
 
   return (
     <div className='message-sender post__wrapper'>
       <div className="status">
-        <Avatar src={profile.src} />
-        <input className='status__input' type="text" placeholder={`${profile.name}, bạn đang nghĩ gì thế?`}/>
+        <Avatar src={user.profileSrc} />
+        <input className='status__input' type="text" placeholder={`${user.name}, bạn đang nghĩ gì thế?`}/>
       </div>
       <div className="post__features">
         <div className="post__option">

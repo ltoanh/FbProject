@@ -2,16 +2,21 @@ import Login from "./login";
 import SignUp from "./signup";
 
 import GoogleIcon from "@mui/icons-material/Google";
+import { Alert, Chip } from "@mui/material";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./sign-form.css";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
 import firebaseClient from "config/firebase";
-import { Alert, Chip } from "@mui/material";
-import { useParams } from "react-router-dom";
+
+import { setUserInformation } from "slice/userSlice";
+import { useDispatch } from 'react-redux';
 
 function SignForm() {
+
+  const dispatch = useDispatch();
 
   // error handler
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,7 +32,15 @@ function SignForm() {
 
     firebaseClient
       .signInWithGoogle()
-      .then((response) => console.log(response))
+      .then((response) => {
+        const user =  {
+          name: response.displayName,
+          profileSrc: response.photoURL,
+          uid: response.uid,
+        };
+
+        dispatch(setUserInformation(user));
+      })
       .catch((err) => setErrorMessage(err));
   };
 

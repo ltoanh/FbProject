@@ -10,13 +10,14 @@ import { Avatar, IconButton } from "@mui/material";
 import { ForumRounded } from "@mui/icons-material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 import { NavLink } from "react-router-dom";
 
+import {useSelector} from 'react-redux';
+import { selectorUser } from "slice/userSlice";
+
 function Header() {
-  const profile = {
-    profileSrc: 'https://images.pexels.com/photos/8265707/pexels-photo-8265707.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    profileName: 'Tú Oanh',
-  }
+  const user = useSelector(selectorUser);
 
   return (
     <div className="header">
@@ -52,8 +53,8 @@ function Header() {
       </div>
       <div className="header__right">
         <div className="header__info">
-          <Avatar src={profile.profileSrc}/>
-          <h4>{profile.profileName}</h4>
+          <Avatar src={user.profileSrc}/>
+          <h4>{user.name}</h4>
         </div>
 
         <IconButton>
