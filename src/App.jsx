@@ -11,9 +11,9 @@ import { selectorUser } from "slice/userSlice";
 function App() {
   const user = useSelector(selectorUser);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
 
   return (
     <>
