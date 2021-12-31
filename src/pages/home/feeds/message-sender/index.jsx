@@ -9,6 +9,7 @@ import {
 import VideocamIcon from "@mui/icons-material/Videocam";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import MoodIcon from "@mui/icons-material/Mood";
+import { FilledInput } from "@mui/material";
 
 import React, { useState } from "react";
 import "./message-sender.css";
@@ -58,12 +59,14 @@ function MessageSender() {
 
 export default MessageSender;
 
+// modal
 const StatusModal = ({ open, handleClose }) => {
   const user = useSelector(selectorUser);
 
   const [disable, setDisable] = useState(true);
 
   const [statusValue, setStatusValue] = useState("");
+  const [imageSrcValue, setImageSrcValue] = useState("");
 
   const handleChangeStatusValue = (e) => {
     let value = e.target.value;
@@ -86,7 +89,7 @@ const StatusModal = ({ open, handleClose }) => {
   const handleClickPostStatus = () => {
     db.collection("posts").add({
       content: statusValue,
-      imageSrc: "",
+      imageSrc: imageSrcValue,
       profileSrc: user.profileSrc,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       username: user.name,
@@ -102,27 +105,44 @@ const StatusModal = ({ open, handleClose }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Tạo bài viết
-        </Typography>
-        <TextareaAutosize
-          minRows={3}
-          placeholder="Bạn đang nghĩ gì thế?"
-          maxRows={10}
-          style={{ width: "100%", border: "1px solid #ebebeb"}}
-          value={statusValue}
-          onChange={handleChangeStatusValue}
-        />
-        <Button
-          onClick={handleClickPostStatus}
-          variant="contained"
-          disabled={disable}
-          style={{ width: "100%" }}
-        >
-          Đăng bài
-        </Button>
-      </Box>
+      <div className="modal-box">
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Tạo bài viết
+          </Typography>
+          <div className="status">
+            <Avatar src={user.profileSrc} />
+            <TextareaAutosize
+              minRows={3}
+              placeholder="Bạn đang nghĩ gì thế?"
+              maxRows={10}
+              style={{
+                width: "100%",
+                border: "1px solid #ebebeb",
+                padding: ".5rem",
+              }}
+              value={statusValue}
+              onChange={handleChangeStatusValue}
+            />
+          </div>
+          <div className="status__option">
+            <input
+              type="text"
+              placeholder="Đường dẫn hình ảnh (.jpg, .png,...)"
+              value={imageSrcValue}
+              onChange={(e) => setImageSrcValue(e.target.value)}
+            />
+          </div>
+          <Button
+            onClick={handleClickPostStatus}
+            variant="contained"
+            disabled={disable}
+            style={{ width: "100%" }}
+          >
+            Đăng bài
+          </Button>
+        </Box>
+      </div>
     </Modal>
   );
 };
@@ -132,7 +152,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "50%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
