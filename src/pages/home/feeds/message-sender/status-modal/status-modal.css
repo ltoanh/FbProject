@@ -1,0 +1,57 @@
+/* modal box */
+.modal-box .MuiBox-root > * ~ *{
+  margin-top: .75rem;
+}
+.status__features{
+  display: flex;
+  align-items: center;
+}
+.status__option input{
+  width: 100%;
+  padding: .5rem;
+
+  font-size: .8rem;
+
+  background-color: var(--input-bg);
+
+  border-radius: var(--border-radius);
+}
+
+.image__preview{
+  max-height: 300px;
+  overflow-y: auto;
+
+  position: relative;
+}
+.image__preview .MuiButtonBase-root{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+
+  background-color: rgba(var(--white-rgb), .2);
+}
+.image__preview .MuiButtonBase-root:hover{
+  background-color: rgba(var(--white-rgb), .5);
+}
+
+.image__preview img{
+  display: block;
+  object-fit: cover;
+}
+
+/* custom scroll */
+.image__preview::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.image__preview::-webkit-scrollbar-track:hover {
+  background: rgba(var(--black-rgb), .2); 
+  border-radius: 999px;
+}
+ 
+/* Handle */
+.image__preview::-webkit-scrollbar-thumb:hover{
+  background: rgba(var(--black-rgb), .4); 
+  border-radius: 999px;
+}

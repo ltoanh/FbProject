@@ -14,7 +14,7 @@ function Post(props) {
         <Avatar src={profileSrc} />
         <div className="post__header__information">
           <h4 className="post__header__information--name">{username}</h4>
-          <p className="post__header__information--timestamp">{new Date(timestamp?.toDate()).toUTCString()}</p>
+          <p className="post__header__information--timestamp">{new Date(timestamp?.toDate()).toString()}</p>
         </div>
       </div>
       <div className="post__content">
