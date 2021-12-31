@@ -8,7 +8,7 @@ import {
   IconButton,
   Modal,
   TextareaAutosize,
-  Typography
+  Typography,
 } from "@mui/material";
 import { db, storage } from "config/firebaseConfig";
 import firebase from "firebase";
@@ -99,60 +99,72 @@ const StatusModal = ({ open, handleClose }) => {
   // upload status post
   const handleClickPostStatus = () => {
     // upload image to storage
-    const uploadTask = storage
-      .ref(`images/${selectedImage.name}`)
-      .put(selectedImage);
+    if (selectedImage) {
+      const uploadTask = storage
+        .ref(`images/${selectedImage.name}`)
+        .put(selectedImage);
 
-    // upload status
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        console.log("Upload is " + progress + "% done");
-        setProgressUploading(progress);
-        switch (snapshot.state) {
-          case "paused":
-            console.log("Upload is paused");
-            break;
-          case "running":
-            console.log("Upload is running");
-            break;
-          default:
+      // upload status
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          console.log("Upload is " + progress + "% done");
+          setProgressUploading(progress);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+          }
+          setIsUploading(true);
+          setDisableButton(true);
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          console.log(error);
+        },
+        () => {
+          // complete upload
+          storage
+            .ref("images")
+            .child(selectedImage.name)
+            .getDownloadURL()
+            .then((url) => {
+              // store post status
+              handleStoreStatusToDb(url);
+
+              setDisableButton(true);
+            })
+            .catch(() => {
+              setDisableButton(false);
+            });
         }
-        setIsUploading(true);
-        setDisableButton(true);
-      },
-      (error) => {
-        // Handle unsuccessful uploads
-        console.log(error);
-      },
-      () => {
-        // complete upload
-        storage
-          .ref("images")
-          .child(selectedImage.name)
-          .getDownloadURL()
-          .then((url) => {
-            // store post status
-            handleStoreStatusToDb(url);
-
-            setDisableButton(true);
-          })
-          .catch(() => {
-            setDisableButton(false);
-          });
-      }
-    );
+      );
+    } else {
+      handleStoreStatusToDb();
+    }
   };
   // post status
-  const handleStoreStatusToDb = (imageSrc) => {
-    db.collection("posts").add({
-      content: statusValue,
-      imageSrc: imageSrc,
-      profileSrc: user.profileSrc,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      username: user.name,
-    });
+  const handleStoreStatusToDb = (imageSrc = "") => {
+    db.collection("posts")
+      .add({
+        content: statusValue,
+        imageSrc: imageSrc,
+        profileSrc: user.profileSrc,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        username: user.name,
+      })
+      .then((res) => {
+        db.collection("posts").doc(res.id).collection("reactions").add({
+          like: 0
+        });
+      });
 
     resetStatusModal();
   };
@@ -220,7 +232,10 @@ const StatusModal = ({ open, handleClose }) => {
             style={{ width: "100%" }}
           >
             {isUploading ? (
-              <CircularProgress variant="determinate" value={progressUploading} />
+              <CircularProgress
+                variant="determinate"
+                value={progressUploading}
+              />
             ) : (
               <span>Đăng bài</span>
             )}

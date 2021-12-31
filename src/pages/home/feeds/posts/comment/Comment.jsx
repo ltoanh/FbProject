@@ -1,52 +1,43 @@
-import { Avatar, Badge, Button, Chip, IconButton, Stack } from "@mui/material";
+import { Avatar, Chip, Stack } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import MoodIcon from "@mui/icons-material/Mood";
-import MoodBadIcon from "@mui/icons-material/MoodBad";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./comment.css";
+import { db } from "config/firebaseConfig";
 
 function Comment(props) {
-  const { profileSrc, name, content, timestamp } = props;
+  const { comment, commentId, postId } = props;
+
+  const [likeCommentValue, setLikeCommentValue] = useState(0);
+  
+  const handleClickLikeComment = () => {
+    db.collection("posts").doc(postId).collection("comments").doc(commentId).update({
+      like: likeCommentValue + 1 
+    });
+
+    setLikeCommentValue(likeCommentValue + 1);
+  }
+
+  useEffect(() => {
+    setLikeCommentValue(comment.like);
+  }, []);
 
   return (
     <div className="comment">
-      <Avatar src={profileSrc} alt={name} />
+      <Avatar src={comment.profileSrc} alt={comment.username} />
       <div className="comment__detail">
         <div className="comment__content">
-          <h5 className="comment__content__name">{name}</h5>
-          <p className="comment__content__detail">{content}</p>
+          <h5 className="comment__content__name">{comment.username}</h5>
+          <p className="comment__content__detail">{comment.content}</p>
         </div>
         <div className="comment__features">
           <Stack direction="row" spacing={1}>
             <Chip
               icon={<ThumbUpIcon />}
               color="info"
-              label="2"
+              label={likeCommentValue}
               variant="outlined"
               clickable
-            />
-            <Chip
-              icon={<FavoriteIcon />}
-              color="error"
-              label="3"
-              variant="outlined"
-              clickable
-            />
-            <Chip
-              icon={<MoodIcon />}
-              color="warning"
-              label="4"
-              variant="outlined"
-              clickable
-            />
-            <Chip
-              icon={<MoodBadIcon />}
-              color="warning"
-              label="1"
-              variant="outlined"
-              clickable
+              onClick={handleClickLikeComment}
             />
           </Stack>
         </div>
