@@ -35,3 +35,14 @@
   border-left-color: transparent;
   
 }
+
+.post__analysis{
+  display: flex;
+  justify-content: space-between;
+  margin: .5rem 0;
+}
+.post__analysis__item{
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
