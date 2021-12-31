@@ -1,0 +1,25 @@
+.comment{
+  display: flex;
+  align-items: flex-start;
+  margin: .5rem;
+
+  gap: 10px;
+}
+
+.comment__input.comment{
+  align-items: center;
+}
+
+.comment__content{
+  display: block;
+  width: 100%;
+  padding: .5rem 1.5rem;
+
+  border-radius: 999px;
+
+  background-color: var(--input-bg);
+}
+
+.comment__features{
+  padding: .5rem 1.5rem;
+}

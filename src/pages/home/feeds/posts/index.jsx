@@ -18,6 +18,7 @@ function Posts() {
       {posts.map((post) => (
         <Post
           key={post.id}
+          postId={post.id}
           profileSrc={post.data.profileSrc}
           username={post.data.username}
           timestamp={post.data.timestamp}
