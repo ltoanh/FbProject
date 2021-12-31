@@ -1,23 +1,15 @@
+import MoodIcon from "@mui/icons-material/Mood";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import VideocamIcon from "@mui/icons-material/Videocam";
 import {
   Avatar,
-  Box,
-  Button,
-  Modal,
-  TextareaAutosize,
-  Typography,
+  Button
 } from "@mui/material";
-import VideocamIcon from "@mui/icons-material/Videocam";
-import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
-import MoodIcon from "@mui/icons-material/Mood";
-import { FilledInput } from "@mui/material";
-
-import React, { useState } from "react";
-import "./message-sender.css";
-
+import React from "react";
 import { useSelector } from "react-redux";
 import { selectorUser } from "slice/userSlice";
-import { db } from "config/firebaseConfig";
-import firebase from "firebase";
+import "./message-sender.css";
+import StatusModal from './status-modal/StatusModal';
 
 function MessageSender() {
   const user = useSelector(selectorUser);
@@ -43,7 +35,7 @@ function MessageSender() {
             <VideocamIcon style={{ color: "red" }} />
             <h4>Video trực tiếp</h4>
           </div>
-          <div className="post__option">
+          <div className="post__option" onClick={handleOpen}>
             <PhotoLibraryIcon style={{ color: "#41B35D" }} />
             <h4>Ảnh/Video</h4>
           </div>
@@ -58,103 +50,3 @@ function MessageSender() {
 }
 
 export default MessageSender;
-
-// modal
-const StatusModal = ({ open, handleClose }) => {
-  const user = useSelector(selectorUser);
-
-  const [disable, setDisable] = useState(true);
-
-  const [statusValue, setStatusValue] = useState("");
-  const [imageSrcValue, setImageSrcValue] = useState("");
-
-  const handleChangeStatusValue = (e) => {
-    let value = e.target.value;
-    setStatusValue(value);
-
-    if (value !== "") {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-  };
-
-  const resetStatusModal = () => {
-    setStatusValue("");
-    setDisable(true);
-    handleClose();
-  };
-
-  // post status
-  const handleClickPostStatus = () => {
-    db.collection("posts").add({
-      content: statusValue,
-      imageSrc: imageSrcValue,
-      profileSrc: user.profileSrc,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      username: user.name,
-    });
-
-    resetStatusModal();
-  };
-
-  return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <div className="modal-box">
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Tạo bài viết
-          </Typography>
-          <div className="status">
-            <Avatar src={user.profileSrc} />
-            <TextareaAutosize
-              minRows={3}
-              placeholder="Bạn đang nghĩ gì thế?"
-              maxRows={10}
-              style={{
-                width: "100%",
-                border: "1px solid #ebebeb",
-                padding: ".5rem",
-              }}
-              value={statusValue}
-              onChange={handleChangeStatusValue}
-            />
-          </div>
-          <div className="status__option">
-            <input
-              type="text"
-              placeholder="Đường dẫn hình ảnh (.jpg, .png,...)"
-              value={imageSrcValue}
-              onChange={(e) => setImageSrcValue(e.target.value)}
-            />
-          </div>
-          <Button
-            onClick={handleClickPostStatus}
-            variant="contained"
-            disabled={disable}
-            style={{ width: "100%" }}
-          >
-            Đăng bài
-          </Button>
-        </Box>
-      </div>
-    </Modal>
-  );
-};
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "10px",
-};
