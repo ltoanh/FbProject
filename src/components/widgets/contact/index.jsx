@@ -26,10 +26,6 @@ function Contact() {
     });
   }, [user.uid]);
 
-  useEffect(() => {
-    console.log(activeUsers);
-  }, [activeUsers]);
-
   return (
     <div className="contact">
       <h3 className="contact__title">{activeUsers.length} người liên hệ</h3>
