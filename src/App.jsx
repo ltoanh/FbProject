@@ -1,12 +1,10 @@
 import Header from "components/header";
 import SignForm from "pages/sign";
-
+import { useSelector } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "routes/Routes";
-
-import { useSelector } from "react-redux";
 import { selectorUser } from "slice/userSlice";
-import { db } from "config/firebaseConfig";
+import { updateInActiveUser } from "utils/updateOnlineUser";
 
 function App() {
   const user = useSelector(selectorUser);
@@ -15,9 +13,9 @@ function App() {
   window.addEventListener("beforeunload", (e) => {
     e.preventDefault();
     
-    db.collection("users").doc(user.uid).update({
-      online: false,
-    });
+    if(user){
+      updateInActiveUser(user.uid)
+    };
   });
 
   return (

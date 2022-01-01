@@ -1,23 +1,30 @@
-import React from "react";
-import "./header.css";
-
-import SearchIcon from "@mui/icons-material/Search";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
+import { ForumRounded, Logout } from "@mui/icons-material";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
-import { Avatar, IconButton } from "@mui/material";
-import { ForumRounded } from "@mui/icons-material";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
+import { Avatar, IconButton, Tooltip } from "@mui/material";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
-import {useSelector} from 'react-redux';
-import { selectorUser } from "slice/userSlice";
+import { clearUserInformation, selectorUser } from "slice/userSlice";
+import { updateInActiveUser } from "utils/updateOnlineUser";
+import { clearUserCredentialStorage } from "utils/userCredential";
+import "./header.css";
 
 function Header() {
   const user = useSelector(selectorUser);
+  const dispatch = useDispatch();
+
+  // logout
+  const handleClickLogOut = () => {
+    clearUserCredentialStorage();
+    updateInActiveUser(user.uid);
+
+    dispatch(clearUserInformation());
+  }
 
   return (
     <div className="header">
@@ -53,7 +60,7 @@ function Header() {
       </div>
       <div className="header__right">
         <div className="header__info">
-          <Avatar src={user.profileSrc}/>
+          <Avatar src={user.profileSrc} />
           <h4>{user.name}</h4>
         </div>
 
@@ -63,9 +70,11 @@ function Header() {
         <IconButton>
           <NotificationsIcon />
         </IconButton>
-        <IconButton>
-          <ArrowDropDownIcon />
-        </IconButton>
+        <Tooltip title="Đăng xuất">
+          <IconButton onClick={handleClickLogOut}>
+            <Logout />
+          </IconButton>
+        </Tooltip>
       </div>
     </div>
   );
