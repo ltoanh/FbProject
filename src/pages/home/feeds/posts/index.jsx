@@ -8,9 +8,10 @@ function Posts() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) =>
+    let unsubscribe = db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) =>
       setPosts(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
     );
+    return () => unsubscribe();
   }, []);
 
   return (

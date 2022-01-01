@@ -11,13 +11,13 @@ const userSlice = createSlice({
     setUserInformation: (state, action) => {
       state.user = action.payload;
     },
-    getUserID: (state) => {
-      return state.user.uid;
+    clearUserInformation: (state) => {
+      state.user = null;
     }
   }
 });
 
-export const {setUserInformation} = userSlice.actions;
+export const {setUserInformation, clearUserInformation} = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectorUser = state => state.user;

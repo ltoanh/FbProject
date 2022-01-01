@@ -14,6 +14,7 @@ import firebaseClient from "config/firebase";
 import { setUserInformation } from "slice/userSlice";
 import { useDispatch } from "react-redux";
 import { getUserCredentialStorage } from "utils/userCredential";
+import { updateOnlineUser } from "utils/updateOnlineUser";
 
 function SignForm() {
   const dispatch = useDispatch();
@@ -26,18 +27,18 @@ function SignForm() {
     setErrorMessage("");
   };
 
-  //auto login if exist in local
-
   const setUserCustomInformation = (userCredential) => {
     const user = {
       name: userCredential.displayName,
       profileSrc: userCredential.photoURL,
       uid: userCredential.uid,
     };
-
+    
     dispatch(setUserInformation(user));
+    updateOnlineUser(user.uid);
   }
-
+  
+  //auto login if exist in local
   useEffect(() => {
     let userCredential = getUserCredentialStorage();
     if(userCredential){

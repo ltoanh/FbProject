@@ -1,9 +1,6 @@
 import {
   Alert,
   Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";

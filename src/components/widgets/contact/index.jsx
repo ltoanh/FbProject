@@ -20,10 +20,12 @@ function Contact() {
 
   // load active user
   useEffect(() => {
-    db.collection("users").onSnapshot((snapshot) => {
+    let unsubscribe = db.collection("users").onSnapshot((snapshot) => {
       let actives = snapshot.docs.map((doc) => doc.data());
       setActiveUsers(actives.filter((active) => active.uid !== user.uid));
     });
+
+    return () => unsubscribe(); // stop listening to change
   }, [user.uid]);
 
   return (
