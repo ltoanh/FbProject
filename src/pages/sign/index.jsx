@@ -4,7 +4,7 @@ import SignUp from "./signup";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Alert, Chip } from "@mui/material";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./sign-form.css";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -12,10 +12,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import firebaseClient from "config/firebase";
 
 import { setUserInformation } from "slice/userSlice";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
+import { getUserCredentialStorage } from "utils/userCredential";
 
 function SignForm() {
-
   const dispatch = useDispatch();
 
   // error handler
@@ -26,20 +26,33 @@ function SignForm() {
     setErrorMessage("");
   };
 
+  //auto login if exist in local
+
+  const setUserCustomInformation = (userCredential) => {
+    const user = {
+      name: userCredential.displayName,
+      profileSrc: userCredential.photoURL,
+      uid: userCredential.uid,
+    };
+
+    dispatch(setUserInformation(user));
+  }
+
+  useEffect(() => {
+    let userCredential = getUserCredentialStorage();
+    if(userCredential){
+      setUserCustomInformation(userCredential)
+    }
+  }, []);
+
   // login with google
   const handleLoginWithGoogle = () => {
     resetErrorValue();
 
     firebaseClient
       .signInWithGoogle()
-      .then((response) => {
-        const user =  {
-          name: response.displayName,
-          profileSrc: response.photoURL,
-          uid: response.uid,
-        };
-
-        dispatch(setUserInformation(user));
+      .then((user) => {
+        setUserCustomInformation(user);
       })
       .catch((err) => setErrorMessage(err));
   };

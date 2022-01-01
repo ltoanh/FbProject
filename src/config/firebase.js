@@ -1,3 +1,4 @@
+import { storeUserCredential } from "utils/userCredential";
 import { auth, db, providerGoogle } from "./firebaseConfig";
 
 const firebaseClient = {
@@ -8,6 +9,8 @@ const firebaseClient = {
         .signInWithPopup(providerGoogle)
         .then((response) => {
           storeUserInDb(response.user);
+          storeUserCredential(response.user);
+
           resolve(response.user);
         })
         .catch((err) => reject(err.message));

@@ -1,4 +1,10 @@
-import { Alert, Button } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+} from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,11 +18,11 @@ function Login() {
   // error handler
   const [errorMessage, setErrorMessage] = useState("");
 
-  // reset value 
+  // reset value
   const resetErrorValue = () => {
     setErrorMessage("");
-  }
-
+  };
+  
   // login
   const handleClickLoginButton = () => {
     resetErrorValue();
@@ -60,10 +66,7 @@ function Login() {
           <Button variant="outlined">Đăng ký</Button>
         </Link>
       </div>
-      {
-        errorMessage && <Alert severity="error">{errorMessage}</Alert>
-      }
-
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
     </>
   );
 }
