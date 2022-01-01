@@ -6,41 +6,50 @@ import {
   ListItemAvatar,
   ListItemButton,
   ListItemText,
-  styled,
 } from "@mui/material";
-import React from "react";
+import { db } from "config/firebaseConfig";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectorUser } from "slice/userSlice";
 import "./contact.css";
 
 function Contact() {
+  const user = useSelector(selectorUser);
+
+  const [activeUsers, setActiveUsers] = useState([]);
+
+  // load active user
+  useEffect(() => {
+    db.collection("users").onSnapshot((snapshot) => {
+      let actives = snapshot.docs.map((doc) => doc.data());
+      setActiveUsers(actives.filter((active) => active.uid !== user.uid));
+    });
+  }, [user.uid]);
+
+  useEffect(() => {
+    console.log(activeUsers);
+  }, [activeUsers]);
+
   return (
     <div className="contact">
-      <h3 className="contact__title">Người liên hệ</h3>
+      <h3 className="contact__title">{activeUsers.length} người liên hệ</h3>
       <Box>
         <List aria-label="contact">
-          <ListItemButton>
-            <ListItemAvatar>
-              <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="dot"
-              >
-                <Avatar alt="Remy Sharp" src="https://images.pexels.com/users/avatars/75708967/vika-kirillova-290.jpeg?auto=compress&fit=crop&h=256&w=256" />
-              </StyledBadge>
-            </ListItemAvatar>
-            <ListItemText primary="Vika Kirillova" />
-          </ListItemButton>
-          <ListItemButton>
-            <ListItemAvatar>
-            <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="dot"
-              >
-                <Avatar alt="Remy Sharp" src="https://images.pexels.com/photos/9967679/pexels-photo-9967679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260https://images.pexels.com/photos/9967679/pexels-photo-9967679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
-              </StyledBadge>
-            </ListItemAvatar>
-            <ListItemText primary="Никита Семехин" />
-          </ListItemButton>      
+          {activeUsers.map((activeUser) => (
+            <ListItemButton key={activeUser.uid}>
+              <ListItemAvatar>
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar alt={activeUser.name} src={activeUser.profileSrc} />
+                  <div className={activeUser.online ? `active-user badget-active` : `inactive-user badget-active`}></div>
+                </Badge>
+              </ListItemAvatar>
+              <ListItemText primary={activeUser.name} />
+            </ListItemButton>
+          ))}
         </List>
       </Box>
     </div>
@@ -48,32 +57,3 @@ function Contact() {
 }
 
 export default Contact;
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    backgroundColor: '#44b700',
-    color: '#44b700',
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: 'ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
-    },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
-}));
