@@ -1,4 +1,4 @@
-import { auth, providerGoogle } from "./firebaseConfig";
+import { auth, db, providerGoogle } from "./firebaseConfig";
 
 const firebaseClient = {
   // dang nhap
@@ -6,7 +6,10 @@ const firebaseClient = {
     return new Promise((resolve, reject) => {
       auth
         .signInWithPopup(providerGoogle)
-        .then((response) => resolve(response.user))
+        .then((response) => {
+          storeUserInDb(response.user);
+          resolve(response.user);
+        })
         .catch((err) => reject(err.message));
     });
   },
@@ -14,7 +17,10 @@ const firebaseClient = {
     return new Promise((resolve, reject) => {
       auth
         .signInWithEmailAndPassword(email, password)
-        .then((response) => resolve(response.user))
+        .then((response) => {
+          storeUserInDb(response.user);
+          resolve(response.user);
+        })
         .catch((err) => reject(err.message));
     });
   },
@@ -27,11 +33,22 @@ const firebaseClient = {
           auth.currentUser.updateProfile({
             displayName: name,
           });
+          storeUserInDb(userCredential.user);
           resolve(userCredential.user);
         })
         .catch((err) => reject(err.message));
     });
   },
+};
+
+const storeUserInDb = (user) => {
+  let storedUser = {
+    uid: user.uid,
+    name: user.displayName,
+    profileSrc: user.photoURL,
+    online: true,
+  };
+  db.collection("users").doc(user.uid).set(storedUser);
 };
 
 export default firebaseClient;
