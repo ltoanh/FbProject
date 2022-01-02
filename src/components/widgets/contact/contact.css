@@ -1,6 +1,21 @@
-.contact .badget-active {
-  
+.contact__header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.contact__title__detail{
+  display: flex;
+  gap: 10px;
+}
+.contact__title__item{
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+}
+
+.contact .badget-active {
   width: 12px;
   height: 12px;
 
