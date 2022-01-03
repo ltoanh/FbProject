@@ -5,7 +5,7 @@ function Catalog() {
   const {catalog} = useParams();
 
   return (
-    <div>
+    <div className='app__content'>
       {catalog}    
     </div>
   )

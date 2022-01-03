@@ -53,8 +53,8 @@ function Contact() {
             <div
               className={
                 item.online
-                  ? `active-user badget-active`
-                  : `inactive-user badget-active`
+                  ? `active-user badge-active`
+                  : `inactive-user badge-active`
               }
             ></div>
           </Badge>

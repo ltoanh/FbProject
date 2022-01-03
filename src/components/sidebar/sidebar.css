@@ -30,4 +30,5 @@
 
 .sidebar__wrapper{
   position: sticky;
+  height: 100%;
 }

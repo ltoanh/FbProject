@@ -15,7 +15,8 @@
   font-weight: 500;
 }
 
-.contact .badget-active {
+/* badge */
+.badge-active {
   width: 12px;
   height: 12px;
 
@@ -28,12 +29,12 @@
   border: 2px solid var(--white);
 }
 
-.active-user.badget-active{
+.active-user.badge-active{
   background-color: #44b700;
   color: #44b700;
 }
 
-.inactive-user.badget-active{
+.inactive-user.badge-active{
   background-color: red;
   color: red;
 }
