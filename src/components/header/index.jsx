@@ -24,7 +24,7 @@ function Header() {
     updateInActiveUser(user.uid);
 
     dispatch(clearUserInformation());
-  }
+  };
 
   return (
     <div className="header">
@@ -64,9 +64,11 @@ function Header() {
           <h4>{user.name}</h4>
         </div>
 
-        <IconButton>
-          <ForumRounded />
-        </IconButton>
+        <NavLink to="/messenger/t" exact>
+          <IconButton>
+            <ForumRounded />
+          </IconButton>
+        </NavLink>
         <IconButton>
           <NotificationsIcon />
         </IconButton>

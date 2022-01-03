@@ -10,6 +10,10 @@
   color: var(--secondary-text);
 }
 
+.app__content{
+  margin-top: var(--header-height);
+}
+
 /* features */
 .post__features {
   display: flex;
