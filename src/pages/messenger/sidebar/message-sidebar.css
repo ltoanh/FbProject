@@ -3,6 +3,10 @@
   overflow-y: auto;
 }
 
+.messenger__item__wrapper{
+  color: var(--black);
+}
+
 .sidebar__header {
   padding: 0.5rem 1rem;
   position: sticky;
@@ -47,6 +51,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  width: 100%;
 }
 
 

@@ -33,10 +33,12 @@ const firebaseClient = {
       auth
         .createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          auth.currentUser.updateProfile({
-            displayName: name,
-          });
-          storeUserInDb(userCredential);
+          auth.currentUser
+            .updateProfile({
+              displayName: name,
+            })
+            .then((user) => storeUserInDb(userCredential));
+
           resolve(userCredential.user);
         })
         .catch((err) => reject(err.message));
@@ -45,7 +47,7 @@ const firebaseClient = {
 };
 
 const storeUserInDb = (response) => {
-  if(response.additionalUserInfo?.isNewUser){
+  if (response.additionalUserInfo?.isNewUser) {
     let user = response.user;
     let storedUser = {
       uid: user.uid,
