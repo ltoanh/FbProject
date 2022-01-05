@@ -22,7 +22,9 @@ const firebaseClient = {
         .signInWithEmailAndPassword(email, password)
         .then((response) => {
           storeUserInDb(response);
-          resolve(response.user);
+          storeUserCredential(response.user);
+
+          resolve(response);
         })
         .catch((err) => reject(err.message));
     });

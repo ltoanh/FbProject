@@ -6,8 +6,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import firebaseClient from "config/firebase";
+import { useDispatch } from "react-redux";
+import { setUserInformation } from "slice/userSlice";
 
 function Login() {
+  const dispatch = useDispatch();
+
   // input state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +30,9 @@ function Login() {
 
     firebaseClient
       .signInWithEmailAndPassword(email, password)
-      .then((response) => console.log(response))
+      .then((user) => {
+        dispatch(setUserInformation(user))
+      })
       .catch((err) => setErrorMessage(err));
   };
 
