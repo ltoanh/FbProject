@@ -1,0 +1,69 @@
+/* sidebar */
+.messenger__sidebar {
+  overflow-y: auto;
+}
+
+.sidebar__header {
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+
+  background-color: var(--white);
+
+  z-index: 2;
+}
+
+.sidebar__header .row {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar__header--title {
+  font-size: 2rem;
+  color: var(--black);
+  margin-bottom: 0.5rem;
+}
+
+.sidebar__message__content{
+  width: calc(100% - 30px - 32px);
+}
+.sidebar__message__preview {
+  display: flex;
+  align-items: center;
+  
+  font-size: .75rem;
+
+  gap: 3px;
+}
+.sidebar__message__sender{
+  font-size: inherit;
+}
+
+.sidebar__message__preview .MuiBadge-root{
+  width: 100%;
+  font-weight: 700;
+}
+.sidebar__message__preview__text{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+/* search */
+.search {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 1rem;
+
+  border-radius: 999px;
+
+  background-color: var(--input-bg);
+}
+.search input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+
+  background-color: transparent;
+}
