@@ -28,6 +28,9 @@
   margin-bottom: 0.5rem;
 }
 
+.sidebar__message__content{
+  width: calc(100% - 30px - 32px);
+}
 .sidebar__message__preview {
   display: flex;
   align-items: center;

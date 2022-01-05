@@ -1,13 +1,13 @@
 export const storeUserCredential = (userCredential) => {
   localStorage.setItem(
-    "FB_CLONE_userCredential_token",
+    "FB_CLONE_userCredential",
     JSON.stringify(userCredential)
   );
 };
 
 export const getUserCredentialStorage = () =>
-  JSON.parse(localStorage.getItem("FB_CLONE_userCredential_token"));
+  JSON.parse(localStorage.getItem("FB_CLONE_userCredential"));
 
 export const clearUserCredentialStorage = () => {
-  localStorage.removeItem("FB_CLONE_userCredential_token");
+  localStorage.removeItem("FB_CLONE_userCredential");
 };

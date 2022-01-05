@@ -8,7 +8,7 @@ const firebaseClient = {
       auth
         .signInWithPopup(providerGoogle)
         .then((response) => {
-          storeUserInDb(response.user);
+          storeUserInDb(response);
           storeUserCredential(response.user);
 
           resolve(response.user);
@@ -21,7 +21,7 @@ const firebaseClient = {
       auth
         .signInWithEmailAndPassword(email, password)
         .then((response) => {
-          storeUserInDb(response.user);
+          storeUserInDb(response);
           resolve(response.user);
         })
         .catch((err) => reject(err.message));
@@ -36,7 +36,7 @@ const firebaseClient = {
           auth.currentUser.updateProfile({
             displayName: name,
           });
-          storeUserInDb(userCredential.user);
+          storeUserInDb(userCredential);
           resolve(userCredential.user);
         })
         .catch((err) => reject(err.message));
@@ -44,14 +44,17 @@ const firebaseClient = {
   },
 };
 
-const storeUserInDb = (user) => {
-  let storedUser = {
-    uid: user.uid,
-    name: user.displayName,
-    profileSrc: user.photoURL,
-    online: true,
-  };
-  db.collection("users").doc(user.uid).set(storedUser);
+const storeUserInDb = (response) => {
+  if(response.additionalUserInfo?.isNewUser){
+    let user = response.user;
+    let storedUser = {
+      uid: user.uid,
+      name: user.displayName,
+      profileSrc: user.photoURL,
+      online: true,
+    };
+    db.collection("users").doc(user.uid).set(storedUser);
+  }
 };
 
 export default firebaseClient;
