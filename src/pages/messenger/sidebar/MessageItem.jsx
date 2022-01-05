@@ -1,8 +1,20 @@
 import { Avatar, Badge, ListItemAvatar, ListItemButton } from "@mui/material";
-import React from "react";
+import { db } from "config/firebaseConfig";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectorUser } from "slice/userSlice";
 
+function MessageItem({ item }) {
+  const user = useSelector(selectorUser);
 
-function MessageItem({item}) {
+  const [userSender, setUserSender] = useState({});
+
+  useEffect(() => {
+    let unsubscribe = db.collection("users").doc(item.uid).onSnapshot(doc => setUserSender(doc.data()));
+
+    return () => unsubscribe();
+  }, [item]);
+
   return (
     <ListItemButton>
       <ListItemAvatar>
@@ -11,10 +23,10 @@ function MessageItem({item}) {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           variant="dot"
         >
-          <Avatar alt={item.name} src={item.profileSrc} />
+          <Avatar alt={userSender.name} src={userSender.profileSrc} />
           <span
             className={
-              item.online
+              userSender.online
                 ? `active-user badge-active`
                 : `inactive-user badge-active`
             }
@@ -22,27 +34,27 @@ function MessageItem({item}) {
         </Badge>
       </ListItemAvatar>
       <div className="sidebar__message__content">
-        <h5 className="sidebar__message__content--name">{item.name}</h5>
+        <h5 className="sidebar__message__content--name">{userSender.name}</h5>
         <div className="sidebar__message__preview">
-          {item.isYourLatestMessenger && <strong>Bạn:</strong>}
-          {item.isYourLatestMessenger && item.isSeen && (
+          {item.uidLatestUserMessage === user.uid && <strong>Bạn:</strong>}
+          {item.uidLatestUserMessage === user.uid && item.isSeen && (
+            <p className="sidebar__message__preview__text">
+              {item.latestMessage}
+            </p>
+          )}
+          {item.uidLatestUserMessage !== user.uid && item.isSeen && (
             <>
               <p className="sidebar__message__preview__text">
                 {item.latestMessage}
               </p>
               <Avatar
-                alt={item.name}
-                src={item.profileSrc}
+                alt={userSender.name}
+                src={userSender.profileSrc}
                 sx={{ width: ".75rem", height: ".75rem" }}
               />
             </>
           )}
-          {!item.isYourLatestMessenger && item.isSeen && (
-            <p className="sidebar__message__preview__text">
-              {item.latestMessage}
-            </p>
-          )}
-          {!item.isYourLatestMessenger && !item.isSeen && (
+          {item.uidLatestUserMessage !== user.uid && !item.isSeen && (
             <Badge color="info" badgeContent="" variant="dot">
               <p className="sidebar__message__preview__text">
                 {item.latestMessage}

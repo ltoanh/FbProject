@@ -29,7 +29,8 @@ function Post(props) {
   // ============= useEffect ====================
   // load comment
   useEffect(() => {
-    db.collection("posts")
+    let unsubscribe = db
+      .collection("posts")
       .doc(postId)
       .collection("comments")
       .orderBy("timestamp", "asc")
@@ -38,6 +39,8 @@ function Post(props) {
           snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
         );
       });
+
+    return () => unsubscribe();
   }, []);
   // load analysis comment
   useEffect(() => {
@@ -50,13 +53,14 @@ function Post(props) {
 
   // load analysis like
   useEffect(() => {
-    db.collection("posts")
+    let unsubscribe = db.collection("posts")
       .doc(postId)
       .collection("reactions")
       .onSnapshot((snapshot) => {
         setLikeId(snapshot.docs[0]?.id);
         setLikeNumber(snapshot.docs[0]?.data()?.like);
       });
+    return () => unsubscribe();
   }, []);
   // like post
   const handleClickLikeNumberPost = () => {
