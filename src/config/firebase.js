@@ -1,5 +1,5 @@
 import { storeUserCredential } from "utils/userCredential";
-import { auth, db, providerGoogle } from "./firebaseConfig";
+import { auth, db, providerGoogle, storage } from "./firebaseConfig";
 
 const firebaseClient = {
   // dang nhap
@@ -24,24 +24,22 @@ const firebaseClient = {
           storeUserInDb(response);
           storeUserCredential(response.user);
 
-          resolve(response);
+          resolve(response.user);
         })
         .catch((err) => reject(err.message));
     });
   },
   // dang ky
-  signUpWithEmailAndPassword: (name, email, password) => {
+  signUpWithEmailAndPassword: (name, email, password, avatar) => {
     return new Promise((resolve, reject) => {
       auth
         .createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          auth.currentUser
-            .updateProfile({
-              displayName: name,
+          updateProfile(userCredential, name, avatar)
+            .then((user) => {
+              resolve(user);
             })
-            .then((user) => storeUserInDb(userCredential));
-
-          resolve(userCredential.user);
+            .catch((err) => reject(err));
         })
         .catch((err) => reject(err.message));
     });
@@ -59,6 +57,40 @@ const storeUserInDb = (response) => {
     };
     db.collection("users").doc(user.uid).set(storedUser);
   }
+};
+
+const updateProfile = (userCredential, name, image) => {
+  return new Promise((resolve, reject) => {
+    let uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        console.log(snapshot);
+      },
+      (err) => console.log(err),
+      () => {
+        // completed upload
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            userCredential.user
+              .updateProfile({
+                photoURL: url,
+                displayName: name,
+              })
+              .then(() => {
+                storeUserInDb(userCredential);
+                storeUserCredential(userCredential.user);
+
+                resolve(userCredential.user);
+              });
+          })
+          .catch((err) => reject(err));
+      }
+    );
+  });
 };
 
 export default firebaseClient;

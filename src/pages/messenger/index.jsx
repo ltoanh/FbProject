@@ -1,9 +1,8 @@
 import React from "react";
-import ChatArea from "./chat-area";
-import MessageSidebar from "./sidebar";
-import "./messenger.css";
 import { BrowserRouter } from "react-router-dom";
 import MessengerRoutes from "routes/MessengerRoutes";
+import "./messenger.css";
+import MessageSidebar from "./sidebar";
 
 function Messenger() {
   return (

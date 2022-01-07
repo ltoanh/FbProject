@@ -9,6 +9,7 @@ import { Avatar, IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { clearUserInformation, selectorUser } from "slice/userSlice";
 import { updateInActiveUser } from "utils/updateOnlineUser";
 import { clearUserCredentialStorage } from "utils/userCredential";

@@ -11,6 +11,12 @@
 
   padding: 3rem 2rem;
 }
+
+.avatar__preview{
+  display: flex;
+  justify-content: center;
+}
+
 /* logo */
 .sign__logo{
   display: flex;
