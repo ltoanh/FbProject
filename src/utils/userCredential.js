@@ -11,3 +11,11 @@ export const getUserCredentialStorage = () =>
 export const clearUserCredentialStorage = () => {
   localStorage.removeItem("FB_CLONE_userCredential");
 };
+
+export const setUserCustomInformation = (userCredential) => {
+  return {
+    name: userCredential.displayName,
+    profileSrc: userCredential.photoURL,
+    uid: userCredential.uid,
+  };
+}

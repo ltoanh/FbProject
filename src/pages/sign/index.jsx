@@ -1,20 +1,15 @@
-import Login from "./login";
-import SignUp from "./signup";
-
 import GoogleIcon from "@mui/icons-material/Google";
 import { Alert, Chip } from "@mui/material";
-
-import React, { useEffect, useState } from "react";
-import "./sign-form.css";
-
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 import firebaseClient from "config/firebase";
-
-import { setUserInformation } from "slice/userSlice";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getUserCredentialStorage } from "utils/userCredential";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { setUserInformation } from "slice/userSlice";
 import { updateOnlineUser } from "utils/updateOnlineUser";
+import { getUserCredentialStorage } from "utils/userCredential";
+import Login from "./login";
+import "./sign-form.css";
+import SignUp from "./signup";
 
 function SignForm() {
   const dispatch = useDispatch();
@@ -33,16 +28,16 @@ function SignForm() {
       profileSrc: userCredential.photoURL,
       uid: userCredential.uid,
     };
-    
+
     dispatch(setUserInformation(user));
     updateOnlineUser(user.uid);
-  }
-  
+  };
+
   //auto login if exist in local
   useEffect(() => {
     let userCredential = getUserCredentialStorage();
-    if(userCredential){
-      setUserCustomInformation(userCredential)
+    if (userCredential) {
+      setUserCustomInformation(userCredential);
     }
   }, []);
 

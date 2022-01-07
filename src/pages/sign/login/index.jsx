@@ -1,13 +1,11 @@
-import {
-  Alert,
-  Button,
-} from "@mui/material";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Alert, Button } from "@mui/material";
 import firebaseClient from "config/firebase";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { setUserInformation } from "slice/userSlice";
+import { updateOnlineUser } from "utils/updateOnlineUser";
+import { setUserCustomInformation } from "utils/userCredential";
 
 function Login() {
   const dispatch = useDispatch();
@@ -23,7 +21,7 @@ function Login() {
   const resetErrorValue = () => {
     setErrorMessage("");
   };
-  
+
   // login
   const handleClickLoginButton = () => {
     resetErrorValue();
@@ -31,7 +29,10 @@ function Login() {
     firebaseClient
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        dispatch(setUserInformation(user))
+        let userCustom = setUserCustomInformation(user);
+
+        dispatch(setUserInformation(userCustom));
+        updateOnlineUser(userCustom.uid);
       })
       .catch((err) => setErrorMessage(err));
   };
