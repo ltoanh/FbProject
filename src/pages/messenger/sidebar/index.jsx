@@ -25,14 +25,10 @@ function MessageSidebar() {
     return () => unsubscribe();
   }, [user]);
 
-  // useEffect(() => {
-  //   console.log(connectedUsersItem);
-  // }, [connectedUsersItem]);
-
   return (
     <div className="sidebar">
       <div className="contact post__wrapper messenger__sidebar">
-        <MessageSidebarHeader />
+        <MessageSidebarHeader messageList={connectedUsersItem}/>
         {connectedUsersItem.map((item) => (
           <NavLink
             to={`/messenger/t/${item.uid}`}
