@@ -38,20 +38,3 @@
   display: block;
   object-fit: cover;
 }
-
-/* custom scroll */
-.image__preview::-webkit-scrollbar {
-  width: 7px;
-}
-
-/* Track */
-.image__preview::-webkit-scrollbar-track:hover {
-  background: rgba(var(--black-rgb), .2); 
-  border-radius: 999px;
-}
- 
-/* Handle */
-.image__preview::-webkit-scrollbar-thumb:hover{
-  background: rgba(var(--black-rgb), .4); 
-  border-radius: 999px;
-}

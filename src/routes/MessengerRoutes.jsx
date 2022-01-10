@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 function MessengerRoutes() {
   return (
     <Switch>
-      <Route path="/:id" component={ChatArea} />
+      <Route path="/messenger/t/:id" exact component={ChatArea} />
     </Switch>
   )
 }
