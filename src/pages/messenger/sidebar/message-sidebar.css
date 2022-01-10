@@ -1,6 +1,8 @@
 /* sidebar */
 .messenger__sidebar {
   overflow-y: auto;
+
+  min-height: 100%;
 }
 
 .messenger__item__wrapper{

@@ -7,6 +7,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectorUser } from "slice/userSlice";
+import { formatRelativeDate } from "utils/formatDate";
 import Comment from "./comment/Comment";
 import InputComment from "./comment/InputComment";
 
@@ -97,7 +98,7 @@ function Post(props) {
         <div className="post__header__information">
           <h4 className="post__header__information--name">{username}</h4>
           <p className="post__header__information--timestamp">
-            {new Date(timestamp?.toDate()).toString()}
+            {timestamp && formatRelativeDate(timestamp?.seconds)}
           </p>
         </div>
       </div>

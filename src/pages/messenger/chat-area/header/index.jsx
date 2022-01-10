@@ -1,7 +1,16 @@
 import { Avatar, Badge } from "@mui/material";
-import React from "react";
+import { db } from "config/firebaseConfig";
+import React, { useEffect, useState } from "react";
 
-function ChatHeader() {
+function ChatHeader({ uid }) {
+  const [userDetail, setUserDetail] = useState({});
+
+  useEffect(() => {
+    db.collection("users")
+      .doc(uid)
+      .onSnapshot((snapshot) => setUserDetail(snapshot.data()));
+  }, [uid]);
+
   return (
     <div className="messenger__detail__header">
       <Badge
@@ -10,16 +19,18 @@ function ChatHeader() {
         variant="dot"
       >
         <Avatar
-          src="https://images.pexels.com/photos/8265707/pexels-photo-8265707.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          src={userDetail?.profileSrc || ""}
           sx={{ width: 56, height: 56 }}
         />
         <div
           className={
-            1 === 1 ? `active-user badge-active` : `inactive-user badge-active`
+            userDetail?.online
+              ? `active-user badge-active`
+              : `inactive-user badge-active`
           }
         ></div>
       </Badge>
-      <h3 className="messenger__detail__header__info">Tu Oanh Le</h3>
+      <h3 className="messenger__detail__header__info">{userDetail?.name}</h3>
     </div>
   );
 }
