@@ -38,6 +38,10 @@ function ChatArea() {
     return () => unsubscribe();
   }, [id, user]);
 
+  useEffect(() => {
+    console.log(messenger);
+  }, [messenger]);
+
   return (
     <div className="messenger__detail post__wrapper">
       {/* header */}
@@ -50,7 +54,7 @@ function ChatArea() {
       <div className="messenger__wrapper__sender">
         <Divider sx={{ my: 1 }} />
         {/* input sender */}
-        <ChatSender />
+        <ChatSender messenger={messenger}/>
       </div>
     </div>
   );

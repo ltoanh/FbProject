@@ -13,31 +13,35 @@ function ChatBox({ messenger }) {
 
   //sort by time asc
   useEffect(() => {
-    messenger.message = messenger?.message?.sort(
-      (a, b) => a.timestamp?.seconds - b.timestamp?.seconds
-    );
+    if (messenger) {
+      messenger.message = messenger?.message?.sort(
+        (a, b) => a.timestamp?.seconds - b.timestamp?.seconds
+      );
+    }
   }, [messenger]);
 
   //filter message by daily
   useEffect(() => {
-    // get date list
-    let dateList = getDateList(messenger?.message);
-    // filter
-    let filterByDate = dateList.map((date) => ({
-      'date': date,
-      'message_list': messenger?.message?.filter(item => formatDate(item?.timestamp.seconds) === date)
-    }));
+    if (messenger) {
+      // get date list
+      let dateList = getDateList(messenger.message);
+      // filter
+      let filterByDate = dateList.map((date) => ({
+        date: date,
+        message_list: messenger?.message?.filter(
+          (item) => formatDate(item?.timestamp.seconds) === date
+        ),
+      }));
 
-    setFiltedDate(filterByDate);
+      setFiltedDate(filterByDate);
+    }
   }, [messenger]);
 
   return (
     <div className="messenger__chat-area">
-      {
-        filtedDate.map((date, idx) => (
-          <ChatGroupDaily key={idx} messageByDate={date}/>
-        ))
-      }
+      {filtedDate.map((date, idx) => (
+        <ChatGroupDaily key={idx} messageByDate={date} />
+      ))}
     </div>
   );
 }
