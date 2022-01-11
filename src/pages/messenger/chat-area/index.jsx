@@ -24,23 +24,21 @@ function ChatArea() {
       .doc(id)
       .onSnapshot(
         (snapshot) => {
-          let mID = snapshot.data().messenger;
-          db.collection("messenger")
-            .doc(mID)
-            .onSnapshot(
-              (snapshot) => setMessenger(snapshot.data()),
-              (err) => console.log("mess err: " + err)
-            );
+          if (snapshot.data()) {
+            let mID = snapshot.data().messenger;
+            db.collection("messenger")
+              .doc(mID)
+              .onSnapshot(
+                (snapshot) => setMessenger(snapshot.data()),
+                (err) => console.log("mess err: " + err)
+              );
+          }
         },
         (err) => console.log("err: " + err)
       );
 
     return () => unsubscribe();
   }, [id, user]);
-
-  useEffect(() => {
-    console.log(messenger);
-  }, [messenger]);
 
   return (
     <div className="messenger__detail post__wrapper">
@@ -54,7 +52,7 @@ function ChatArea() {
       <div className="messenger__wrapper__sender">
         <Divider sx={{ my: 1 }} />
         {/* input sender */}
-        <ChatSender messenger={messenger}/>
+        <ChatSender messenger={messenger} />
       </div>
     </div>
   );

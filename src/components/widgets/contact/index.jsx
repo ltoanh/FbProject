@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { selectorUser } from "slice/userSlice";
 import "./contact.css";
 import { Person } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 function Contact() {
   const user = useSelector(selectorUser);
@@ -42,25 +43,29 @@ function Contact() {
 
   const renderListUsers = (arrayUsers) =>
     arrayUsers.map((item) => (
-      <ListItemButton key={item.uid}>
-        <ListItemAvatar>
-          <Badge
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant="dot"
-          >
-            <Avatar alt={item.name} src={item.profileSrc} />
-            <div
-              className={
-                item.online
-                  ? `active-user badge-active`
-                  : `inactive-user badge-active`
-              }
-            ></div>
-          </Badge>
-        </ListItemAvatar>
-        <ListItemText primary={item.name} />
-      </ListItemButton>
+      <Link to={`/messenger/t/${item.uid}`}
+      key={item.uid}
+      >
+        <ListItemButton key={item.uid}>
+          <ListItemAvatar>
+            <Badge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar alt={item.name} src={item.profileSrc} />
+              <div
+                className={
+                  item.online
+                    ? `active-user badge-active`
+                    : `inactive-user badge-active`
+                }
+              ></div>
+            </Badge>
+          </ListItemAvatar>
+          <ListItemText primary={item.name} />
+        </ListItemButton>
+      </Link>
     ));
 
   return (

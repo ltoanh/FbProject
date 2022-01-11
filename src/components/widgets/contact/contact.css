@@ -38,3 +38,8 @@
   background-color: red;
   color: red;
 }
+
+.contact .MuiBox-root .MuiTypography-root{
+  font-size: 1rem;
+  color: var(--black);
+}

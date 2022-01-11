@@ -88,7 +88,7 @@ function Post(props) {
         profileSrc: user.profileSrc,
         like: 0,
       })
-      .then((res) => console.log(res));
+      .then(setUserComment(""));
   };
 
   return (
