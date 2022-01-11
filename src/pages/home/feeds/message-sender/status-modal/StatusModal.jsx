@@ -111,17 +111,8 @@ const StatusModal = ({ open, handleClose }) => {
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
-          console.log("Upload is " + progress + "% done");
           setProgressUploading(progress);
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-            default:
-          }
+          
           setIsUploading(true);
           setDisableButton(true);
         },
