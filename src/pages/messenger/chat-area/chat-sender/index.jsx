@@ -80,7 +80,10 @@ function ChatSender({ messenger }) {
       e.preventDefault();
 
       if (messenger?.message) {
+        // cap nhat tin nhan moi vao messenger
         updateMessengerCollection(messenger.mid);
+        // cap nhat preview vao users/messenger
+        updateMessageUserPreview(messenger.mid);
       } else {
         addMessengerCollection();
       }
