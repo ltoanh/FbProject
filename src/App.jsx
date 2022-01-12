@@ -1,7 +1,6 @@
 import Header from "components/header";
 import SignForm from "pages/sign";
 import { useSelector } from "react-redux";
-import { Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "routes/Routes";
 import { selectorUser } from "slice/userSlice";

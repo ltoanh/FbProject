@@ -1,7 +1,8 @@
 import { db } from "config/firebaseConfig";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { setMessengerPreview } from "slice/messengerPreviewSlice";
 import { selectorUser } from "slice/userSlice";
 import "./message-sidebar.css";
 import MessageItem from "./MessageItem";
@@ -9,6 +10,7 @@ import MessageSidebarHeader from "./MessageSidebarHeader";
 
 function MessageSidebar() {
   const user = useSelector(selectorUser);
+  const dispatch = useDispatch();
 
   const [connectedUsersItem, setConnectedUsersItem] = useState([]);
   // load message
@@ -25,11 +27,18 @@ function MessageSidebar() {
     return () => unsubscribe();
   }, [user]);
 
+  // store in redux messengerPreview
+  useEffect(() => {
+    if(connectedUsersItem){
+      dispatch(setMessengerPreview(connectedUsersItem));
+    }
+  }, [connectedUsersItem])
+
   return (
     <div className="sidebar">
       <div className="contact post__wrapper messenger__sidebar">
         <MessageSidebarHeader messageList={connectedUsersItem}/>
-        {connectedUsersItem.map((item) => (
+        {connectedUsersItem.map((item,idx) => (
           <NavLink
             to={`/messenger/t/${item.uid}`}
             key={item.uid}
