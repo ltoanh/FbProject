@@ -1,8 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "slice/userSlice";
+import messengerPreviewReducer from "slice/messengerPreviewSlice";
+import userReducer from "slice/userSlice";
 
 const store = configureStore({
-  reducer: userSlice,
+  reducer:{
+    user: userReducer,
+    messengerPreview: messengerPreviewReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore these field paths in all actions
+        ignoredActionPaths: ["meta.arg", "payload.timestamp"],
+      },
+    }),
 });
 
 export default store;
