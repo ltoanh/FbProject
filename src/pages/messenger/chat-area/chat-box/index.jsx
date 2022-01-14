@@ -101,7 +101,7 @@ function ChatBox({ messenger }) {
                 )
             )}
             {
-              membersPreviewMessage.length === 1 && <small className="seen-timestamp__time">{formatRelativeDate(membersPreviewMessage[0].timestamp.seconds)}</small>
+              membersPreviewMessage.length === 1 && membersPreviewMessage.isSeen && <small className="seen-timestamp__time">{formatRelativeDate(membersPreviewMessage[0].timestamp.seconds)}</small>
             }
           </div>
         </AvatarGroup>
