@@ -89,6 +89,16 @@
   margin-bottom: 0.2rem;
 }
 
+/* seen time */
+.seen-timestamp{
+  display: flex;
+  gap: 5px;
+}
+.seen-timestamp__time{
+  display: block;
+  font-size: .7rem;
+}
+
 /* input sender  */
 .messenger__wrapper__sender{
   position: sticky;
