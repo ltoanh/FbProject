@@ -18,22 +18,22 @@ function ChatArea() {
   const { id } = useParams();
 
   const [messenger, setMessenger] = useState([]);
-  const [messengerPreview, setMessengerPreview] = useState({});
+  const [messengerUserPreview, setMessengerUserPreview] = useState({});
 
   // load preview
   useEffect(() => {
     if (previewMessage) {
-      setMessengerPreview(
-        previewMessage.filter((messenger) => messenger.uid === id)
+      setMessengerUserPreview(
+        previewMessage.filter((messenger) => messenger.uid === id)[0]
       );
     }
   }, [previewMessage, id]);
   // update seen message
   useEffect(() => {
-    if (messengerPreview) {
+    if (messengerUserPreview) {
       if (
-        messengerPreview.uidLatestUserMessage !== user.uid &&
-        !messengerPreview.isSeen
+        messengerUserPreview.uidLatestUserMessage !== user.uid &&
+        messengerUserPreview.isSeen === false
       ) {
         db.collection("users").doc(user.uid).collection("messenger").doc(id).update({
           isSeen: true,
@@ -41,7 +41,7 @@ function ChatArea() {
         })
       }
     }
-  }, [messengerPreview]);
+  }, [messengerUserPreview]);
 
   // load message
   useEffect(() => {
@@ -80,7 +80,7 @@ function ChatArea() {
       <div className="messenger__wrapper__sender">
         <Divider sx={{ my: 1 }} />
         {/* input sender */}
-        <ChatSender messenger={messenger} />
+        <ChatSender messenger={messenger}/>
       </div>
     </div>
   );
