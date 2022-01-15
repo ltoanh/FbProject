@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { selectorMessengerPreview } from "slice/messengerPreviewSlice";
 import { selectorUser } from "slice/userSlice";
 import "./chat-area.css";
-import firebase from 'firebase';
+import firebase from "firebase";
 import ChatBox from "./chat-box";
 import ChatSender from "./chat-sender";
 import ChatHeader from "./header";
@@ -17,6 +17,7 @@ function ChatArea() {
 
   const { id } = useParams();
 
+  const [mID, setMID] = useState("");
   const [messenger, setMessenger] = useState([]);
   const [messengerUserPreview, setMessengerUserPreview] = useState({});
 
@@ -35,38 +36,41 @@ function ChatArea() {
         messengerUserPreview.uidLatestUserMessage !== user.uid &&
         messengerUserPreview.isSeen === false
       ) {
-        db.collection("users").doc(user.uid).collection("messenger").doc(id).update({
-          isSeen: true,
-          timestamp: firebase.firestore.Timestamp.now(),
-        })
+        db.collection("users")
+          .doc(user.uid)
+          .collection("messenger")
+          .doc(id)
+          .update({
+            isSeen: true,
+            timestamp: firebase.firestore.Timestamp.now(),
+          });
       }
     }
   }, [messengerUserPreview]);
 
-  // load message
+  // load mID
   useEffect(() => {
     let unsubscribe = db
       .collection("users")
       .doc(user.uid)
       .collection("messenger")
       .doc(id)
-      .onSnapshot(
-        (snapshot) => {
-          if (snapshot.data()) {
-            let mID = snapshot.data().messenger;
-            db.collection("messenger")
-              .doc(mID)
-              .onSnapshot(
-                (snapshot) => setMessenger(snapshot.data()),
-                (err) => console.log("mess err: " + err)
-              );
-          }
-        },
-        (err) => console.log("err: " + err)
-      );
-
+      .onSnapshot((snapshot) => setMID(snapshot.data().messenger));
     return () => unsubscribe();
   }, [id, user]);
+  // load messenger
+  useEffect(() => {
+    if (mID) {
+      let unsubscribe = db
+        .collection("messenger")
+        .doc(mID)
+        .onSnapshot(
+          (snapshot) => setMessenger(snapshot.data()),
+          (err) => console.log("mess err: " + err)
+        );
+      return () => unsubscribe();
+    }
+  }, [mID]);
 
   return (
     <div className="messenger__detail post__wrapper">
@@ -80,7 +84,7 @@ function ChatArea() {
       <div className="messenger__wrapper__sender">
         <Divider sx={{ my: 1 }} />
         {/* input sender */}
-        <ChatSender messenger={messenger}/>
+        <ChatSender messenger={messenger} />
       </div>
     </div>
   );
