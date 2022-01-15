@@ -3,9 +3,8 @@ import { db } from "config/firebaseConfig";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectorUser } from "slice/userSlice";
-import { formatDate } from "utils/formatDate";
+import { formatDate, formatRelativeDate } from "utils/formatDate";
 import ChatGroupDaily from "./ChatGroupDaily";
-import {formatRelativeDate} from 'utils/formatDate';
 
 function ChatBox({ messenger }) {
   const user = useSelector(selectorUser);
@@ -64,7 +63,7 @@ function ChatBox({ messenger }) {
           .onSnapshot((snapMessenger) =>
             db
               .collection("users")
-              .doc(snapMessenger.data().uid)
+              .doc(member)
               .onSnapshot((snapUser) =>
                 setMembersPreviewMessage([
                   ...membersPreviewMessage,
@@ -79,9 +78,11 @@ function ChatBox({ messenger }) {
     }
   }, [membersInMessenger]);
 
-  useEffect(() => {
-    console.log("users preivew", membersPreviewMessage);
-  }, [membersPreviewMessage]);
+  // useEffect(() => {
+  //   console.log("users preivew", membersPreviewMessage);
+
+  // }, [membersPreviewMessage]);
+
   return (
     <div className="messenger__chat-area">
       {filtedDate.map((date, idx) => (
@@ -101,9 +102,14 @@ function ChatBox({ messenger }) {
                   />
                 )
             )}
-            {
-              membersPreviewMessage.length === 1 && membersPreviewMessage.isSeen && <small className="seen-timestamp__time">{formatRelativeDate(membersPreviewMessage[0].timestamp.seconds)}</small>
-            }
+            {membersPreviewMessage.length === 1 &&
+              membersPreviewMessage[0].isSeen && (
+                <small className="seen-timestamp__time">
+                  {formatRelativeDate(
+                    membersPreviewMessage[0].timestamp.seconds
+                  )}
+                </small>
+              )}
           </div>
         </AvatarGroup>
       )}
