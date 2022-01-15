@@ -97,6 +97,7 @@ function ChatBox({ messenger }) {
                     sx={{ width: "13px", height: "13px" }}
                     alt={member.name}
                     src={member.profileSrc}
+                    key={member.uid}
                   />
                 )
             )}
