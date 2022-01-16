@@ -5,8 +5,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
-import { Avatar, IconButton, Tooltip } from "@mui/material";
-import React from "react";
+import { Avatar, Badge, IconButton, Tooltip } from "@mui/material";
+import { db } from "config/firebaseConfig";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
@@ -19,6 +20,9 @@ function Header() {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
 
+  // count unread message
+  const [numberUnreadMessage, setNumberUnreadMessage] = useState(0);
+
   // logout
   const handleClickLogOut = () => {
     clearUserCredentialStorage();
@@ -26,6 +30,24 @@ function Header() {
 
     dispatch(clearUserInformation());
   };
+
+  // count number unread message
+  useEffect(() => {
+    let unsubscribe = db
+      .collection("users")
+      .doc(user.uid)
+      .collection("messenger")
+      .onSnapshot((snapshot) =>
+        setNumberUnreadMessage(
+          snapshot.docs.reduce(
+            (total, message) => (message.data().isSeen === false ? total + 1 : total),
+            0
+          )
+        )
+      );
+
+    return () => unsubscribe();
+  }, [user]);
 
   return (
     <div className="header">
@@ -67,7 +89,9 @@ function Header() {
 
         <NavLink to="/messenger/t" exact>
           <IconButton>
-            <ForumRounded />
+            <Badge badgeContent={numberUnreadMessage} color="error">
+              <ForumRounded />
+            </Badge>
           </IconButton>
         </NavLink>
         <IconButton>

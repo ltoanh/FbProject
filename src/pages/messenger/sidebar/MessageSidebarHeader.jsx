@@ -11,7 +11,7 @@ function MessageSidebarHeader({messageList}) {
 
   // count unread message
   useEffect(() => {
-    let number = messageList.reduce((total, message) => !message.isSeen ? total + 1 : total, 0);
+    let number = messageList.reduce((total, message) => message.isSeen === false ? total + 1 : total, 0);
 
     setUnreadNumber(number);
   }, [messageList]);

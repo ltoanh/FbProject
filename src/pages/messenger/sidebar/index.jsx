@@ -38,7 +38,7 @@ function MessageSidebar() {
     <div className="sidebar">
       <div className="contact post__wrapper messenger__sidebar">
         <MessageSidebarHeader messageList={connectedUsersItem}/>
-        {connectedUsersItem.map((item,idx) => (
+        {connectedUsersItem.map((item) => (
           <NavLink
             to={`/messenger/t/${item.uid}`}
             key={item.uid}
