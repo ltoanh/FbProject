@@ -1,7 +1,14 @@
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import { Avatar } from "@mui/material";
+import {
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem
+} from "@mui/material";
 import { db } from "config/firebaseConfig";
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
@@ -11,8 +18,10 @@ import { formatRelativeDate } from "utils/formatDate";
 import Comment from "./comment/Comment";
 import InputComment from "./comment/InputComment";
 
+const ITEM_HEIGHT = 48;
+
 function Post(props) {
-  const { postId, profileSrc, username, timestamp, content, imageSrc } = props;
+  const { postId, profileSrc, username, timestamp, content, imageSrc, setOpenSlackbar } = props;
 
   const user = useSelector(selectorUser);
 
@@ -54,7 +63,8 @@ function Post(props) {
 
   // load analysis like
   useEffect(() => {
-    let unsubscribe = db.collection("posts")
+    let unsubscribe = db
+      .collection("posts")
       .doc(postId)
       .collection("reactions")
       .onSnapshot((snapshot) => {
@@ -91,15 +101,75 @@ function Post(props) {
       .then(setUserComment(""));
   };
 
+  // post menu
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openPostMenu = Boolean(anchorEl);
+  const handleClickPostMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClosePostMenu = () => {
+    setAnchorEl(null);
+  };
+  
+
+  // delete post
+  const handleClickDeletePost = () => {
+    db.collection("posts")
+      .doc(postId)
+      .delete()
+      .then(() => {
+        console.log("success");
+        setOpenSlackbar(true);
+      })
+      .catch((err) => console.log(err));
+
+    // setOpenSlackbar(true);
+    setAnchorEl(null);
+  };
+
   return (
     <div className="post post__wrapper">
-      <div className="post__header">
-        <Avatar src={profileSrc} />
-        <div className="post__header__information">
-          <h4 className="post__header__information--name">{username}</h4>
-          <p className="post__header__information--timestamp">
-            {timestamp && formatRelativeDate(timestamp?.seconds)}
-          </p>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="post__header">
+          <Avatar src={profileSrc} />
+          <div className="post__header__information">
+            <h4 className="post__header__information--name">{username}</h4>
+            <p className="post__header__information--timestamp">
+              {timestamp && formatRelativeDate(timestamp?.seconds)}
+            </p>
+          </div>
+        </div>
+        <div>
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={openPostMenu ? "long-menu" : undefined}
+            aria-expanded={openPostMenu ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={handleClickPostMenu}
+          >
+            <MoreHorizIcon />
+          </IconButton>
+          <Menu
+            id="long-menu"
+            MenuListProps={{
+              "aria-labelledby": "long-button",
+            }}
+            anchorEl={anchorEl}
+            open={openPostMenu}
+            onClose={handleClosePostMenu}
+            PaperProps={{
+              style: {
+                maxHeight: ITEM_HEIGHT * 4.5,
+                width: "20ch",
+              },
+            }}
+          >
+            <MenuItem onClick={handleClickDeletePost} disableRipple>
+              <DeleteIcon />
+              Xóa
+            </MenuItem>
+          </Menu>
         </div>
       </div>
       <div className="post__content">
