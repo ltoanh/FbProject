@@ -43,3 +43,13 @@
   font-size: 1rem;
   color: var(--black);
 }
+
+@media (max-width: 768px) {
+  .contact__title{
+    font-size: 1rem;
+  }
+
+  .contact .MuiBox-root .MuiTypography-root{
+    font-size: .7rem;
+  }
+}

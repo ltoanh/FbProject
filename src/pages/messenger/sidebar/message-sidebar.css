@@ -5,7 +5,7 @@
   min-height: 100%;
 }
 
-.messenger__item__wrapper{
+.messenger__item__wrapper {
   color: var(--black);
 }
 
@@ -30,33 +30,32 @@
   margin-bottom: 0.5rem;
 }
 
-.sidebar__message__content{
+.sidebar__message__content {
   width: calc(100% - 30px - 32px);
 }
 .sidebar__message__preview {
   display: flex;
   align-items: center;
-  
-  font-size: .75rem;
+
+  font-size: 0.75rem;
 
   gap: 3px;
 }
-.sidebar__message__sender{
+.sidebar__message__sender {
   font-size: inherit;
 }
 
-.sidebar__message__preview .MuiBadge-root{
+.sidebar__message__preview .MuiBadge-root {
   width: 100%;
   font-weight: 700;
 }
-.sidebar__message__preview__text{
+.sidebar__message__preview__text {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 
   width: 100%;
 }
-
 
 /* search */
 .search {
@@ -74,4 +73,28 @@
   padding: 0.5rem;
 
   background-color: transparent;
+}
+
+.unseen-message {
+  background-color: #80d8ff;
+}
+
+@media screen and (max-width: 992px) {
+  .messenger .sidebar {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar__header {
+    display: none;
+  }
+
+  .sidebar__message__content {
+    display: none;
+  }
+
+  .messenger .sidebar {
+    max-width: 100px;
+  }
 }

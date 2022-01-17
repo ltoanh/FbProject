@@ -38,3 +38,13 @@
   display: block;
   object-fit: cover;
 }
+
+@media (max-width: 576px) {
+  .post__features{
+    display: none;
+  }
+
+  .status .MuiButton-root{
+    font-size: .7rem;
+  }
+}
