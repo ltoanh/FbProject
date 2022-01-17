@@ -10,3 +10,9 @@
 .feeds > * ~ * {
   margin-top: 1rem;
 }
+
+@media screen and (max-width: 992px){
+  .feeds{
+    max-width: 70%;
+  }
+}
