@@ -1,15 +1,22 @@
 
 # FACEBOOK - CLONE
 
-project to learn React.js and Redux Toolkit
+project to learn React.js, Redux Toolkit and Firebase
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
-
+### 1. Authenticate
+- user have to login to use
+- store user authen at local storage
+- user can logout
+### 2. Status post
+- post, delete status with images (option) to all users
+- like, comment posts
+### 3. Connect with all users
+- show how many users online, offline
+- show list user sort by online, offline
+- message real-time to any users
+- show total unread messenger at navbar
 
 ## Tech Stack
 
@@ -20,15 +27,18 @@ project to learn React.js and Redux Toolkit
 
 ## Demo
 
-Insert gif or link to demo
+**Demo at**: https://fb-clone-teal.vercel.app/
 
+Account test:
+- email: abc1234@gmail.com
+- password: 123456789
 
 ## Installation
 
 Install fb-clone with npm
 
 ```bash
-  npm install fb-clone
+  npm install
 ```
     
 ## Contributing
