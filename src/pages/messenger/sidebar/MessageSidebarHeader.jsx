@@ -24,7 +24,7 @@ function MessageSidebarHeader({messageList}) {
           <Avatar
             src={user.profileSrc}
             sx={{ width: "30px", height: "30px" }}
-            alt={user.name}
+            alt={user?.name}
           />
         </Badge>
       </div>

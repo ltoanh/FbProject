@@ -11,7 +11,7 @@ function InputComment(props) {
 
   return (
     <div className="comment comment__input">
-      <Avatar src={user.profileSrc} alt={user.name} />
+      <Avatar src={user.profileSrc} alt={user?.name} />
       <input
         className="comment__content"
         type="text"

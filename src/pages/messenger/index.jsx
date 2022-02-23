@@ -1,3 +1,4 @@
+import withAuth from "hooks/withAuth";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import MessengerRoutes from "routes/MessengerRoutes";
@@ -17,4 +18,4 @@ function Messenger() {
   );
 }
 
-export default Messenger;
+export default withAuth(Messenger);

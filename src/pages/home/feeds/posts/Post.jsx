@@ -94,7 +94,7 @@ function Post(props) {
       .add({
         content: userComment,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        username: user.name,
+        username: user?.name,
         profileSrc: user.profileSrc,
         like: 0,
       })

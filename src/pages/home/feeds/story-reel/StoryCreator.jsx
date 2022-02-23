@@ -9,7 +9,7 @@ function StoryCreator() {
 
   return (
     <div className="story-creator story post__wrapper">
-      <img className="story-creator__image" src={user.profileSrc} alt={user.name} />
+      <img className="story-creator__image" src={user.profileSrc} alt={user?.name} />
       <div className="story-creator__add">
         <AddCircleIcon color="primary" />
       </div>
