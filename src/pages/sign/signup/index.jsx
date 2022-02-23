@@ -9,6 +9,7 @@ import { setUserCustomInformation } from "utils/userCredential";
 
 function SignUp() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // avatar src state
   const avatarRef = useRef();
@@ -68,81 +69,92 @@ function SignUp() {
 
           dispatch(setUserInformation(userCustom));
           updateOnlineUser(userCustom.uid);
+          history.push("/");
         })
         .catch((err) => setErrorMessage(err));
     }
   };
 
   return (
-    <>
-      <div className="sign__item">
-        <label htmlFor="avatar">Avatar:</label>
-        {avatarSrc && (
-          <div className="avatar__preview">
-            <Avatar
-              src={avatarSrc}
-              alt=""
-              sx={{ width: "120px", height: "120px" }}
+    <div className="center__form">
+      <div className="sign post__wrapper">
+        <div className="sign__logo">
+          <img
+            src="https://logodownload.org/wp-content/uploads/2021/10/meta-logo.png"
+            alt="meta logo"
+          />
+        </div>
+        <div className="sign__form">
+          <div className="sign__item">
+            <label htmlFor="avatar">Avatar:</label>
+            {avatarSrc && (
+              <div className="avatar__preview">
+                <Avatar
+                  src={avatarSrc}
+                  alt=""
+                  sx={{ width: "120px", height: "120px" }}
+                />
+              </div>
+            )}
+            <input
+              ref={avatarRef}
+              type="file"
+              accept="image/*"
+              onChange={handleChangeAvatarSrc}
             />
           </div>
-        )}
-        <input
-          ref={avatarRef}
-          type="file"
-          accept="image/*"
-          onChange={handleChangeAvatarSrc}
-        />
+          <div className="sign__item">
+            <label htmlFor="name">Họ và tên:</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="sign__item">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="sign__item">
+            <label htmlFor="password">Mật khẩu:</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="sign__item">
+            <label htmlFor="password__confirmation">Xác nhận mật khẩu:</label>
+            <input
+              type="password"
+              name="password__confirmation"
+              id="password__confirmation"
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+            />
+          </div>
+          <div className="form__actions">
+            <Link to="/login">
+              <Button sx={{ mr: 2 }} variant="outlined">
+                Đăng nhập
+              </Button>
+            </Link>
+            <Button onClick={handleClickSignUpButton} variant="contained">
+              Đăng ký
+            </Button>
+          </div>
+          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+        </div>
       </div>
-      <div className="sign__item">
-        <label htmlFor="name">Họ và tên:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div className="sign__item">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="sign__item">
-        <label htmlFor="password">Mật khẩu:</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="sign__item">
-        <label htmlFor="password__confirmation">Xác nhận mật khẩu:</label>
-        <input
-          type="password"
-          name="password__confirmation"
-          id="password__confirmation"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        />
-      </div>
-      <div className="form__actions">
-        <Link to="/">
-          <Button sx={{ mr: 2 }} variant="outlined">
-            Đăng nhập
-          </Button>
-        </Link>
-        <Button onClick={handleClickSignUpButton} variant="contained">
-          Đăng ký
-        </Button>
-      </div>
-      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-    </>
+    </div>
   );
 }
 

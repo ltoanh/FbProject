@@ -28,7 +28,7 @@ function MessageSender() {
           <Button
             variant="text"
             onClick={handleOpen}
-          >{`${user.name}, bạn đang nghĩ gì thế?`}</Button>
+          >{`${user?.name}, bạn đang nghĩ gì thế?`}</Button>
         </div>
         <div className="post__features">
           <div className="post__option">

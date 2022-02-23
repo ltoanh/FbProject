@@ -4,6 +4,7 @@ import Widgets from "components/widgets";
 
 import React from "react";
 import "./home.css";
+import withAuth from "hooks/withAuth";
 
 function Home() {
   return (
@@ -15,4 +16,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default withAuth(Home);

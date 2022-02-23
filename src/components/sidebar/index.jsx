@@ -20,7 +20,7 @@ function Sidebar() {
       <div className="sidebar__wrapper">
         <SidebarRow
           src={user.profileSrc}
-          title={user.name}
+          title={user?.name}
         />
         <SidebarRow Icon={PeopleIcon} title="Bạn bè" />
         <SidebarRow Icon={SmartDisplayIcon} title="Watch" />

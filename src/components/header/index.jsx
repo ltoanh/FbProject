@@ -7,10 +7,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
 import { Avatar, Badge, IconButton, Tooltip } from "@mui/material";
 import { db } from "config/firebaseConfig";
+import withAuth from "hooks/withAuth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { clearUserInformation, selectorUser } from "slice/userSlice";
 import { updateInActiveUser } from "utils/updateOnlineUser";
 import { clearUserCredentialStorage } from "utils/userCredential";
@@ -84,7 +84,7 @@ function Header() {
       <div className="header__right">
         <div className="header__info">
           <Avatar src={user.profileSrc} />
-          <h4>{user.name}</h4>
+          <h4>{user?.name}</h4>
         </div>
 
         <NavLink to="/messenger/t" exact>
@@ -107,4 +107,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default withAuth(Header);
