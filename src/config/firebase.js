@@ -61,35 +61,48 @@ const storeUserInDb = (response) => {
 
 const updateProfile = (userCredential, name, image) => {
   return new Promise((resolve, reject) => {
-    let uploadTask = storage.ref(`images/${image.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        console.log(snapshot);
-      },
-      (err) => console.log(err),
-      () => {
-        // completed upload
-        storage
-          .ref("images")
-          .child(image.name)
-          .getDownloadURL()
-          .then((url) => {
-            userCredential.user
-              .updateProfile({
-                photoURL: url,
-                displayName: name,
-              })
-              .then(() => {
-                storeUserInDb(userCredential);
-                storeUserCredential(userCredential.user);
+    if (image) {
+      let uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          console.log(snapshot);
+        },
+        (err) => console.log(err),
+        () => {
+          // completed upload
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              userCredential.user
+                .updateProfile({
+                  photoURL: url,
+                  displayName: name,
+                })
+                .then(() => {
+                  storeUserInDb(userCredential);
+                  storeUserCredential(userCredential.user);
 
-                resolve(userCredential.user);
-              });
-          })
-          .catch((err) => reject(err));
-      }
-    );
+                  resolve(userCredential.user);
+                });
+            })
+            .catch((err) => reject(err));
+        }
+      );
+    } else {
+      userCredential.user
+        .updateProfile({
+          displayName: name,
+        })
+        .then(() => {
+          storeUserInDb(userCredential);
+          storeUserCredential(userCredential.user);
+
+          resolve(userCredential.user);
+        });
+    }
   });
 };
 
