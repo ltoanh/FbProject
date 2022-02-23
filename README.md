@@ -20,7 +20,7 @@ project to learn React.js, Redux Toolkit and Firebase
 
 ## Tech Stack
 
-**Client:** React, Redux Toolkit, Material UI
+**Client:** React, Redux Toolkit, Material UI, react-router-dom, date-fns
 
 **Server:** Firebase
 
