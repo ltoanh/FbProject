@@ -64,6 +64,7 @@ function SignUp() {
         .signUpWithEmailAndPassword(name, email, password, imageSelected)
         .then((user) => {
           let userCustom = setUserCustomInformation(user);
+          console.log(userCustom);
 
           dispatch(setUserInformation(userCustom));
           updateOnlineUser(userCustom.uid);
