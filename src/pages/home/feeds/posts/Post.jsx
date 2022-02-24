@@ -179,7 +179,7 @@ function Post(props) {
         )}
       </div>
       <div className="post__content">
-        {content && <p>{content}</p>}
+        {content && <div dangerouslySetInnerHTML={{__html: content}} />}
         {imageSrc && <img src={imageSrc} alt="" />}
       </div>
       {/* thong ke */}
