@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
 import { Avatar, Badge, IconButton, Tooltip } from "@mui/material";
 import { db } from "config/firebaseConfig";
-import withAuth from "hooks/withAuth";
+import withAuth from "hoc/withAuth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";

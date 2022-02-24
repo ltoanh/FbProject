@@ -9,7 +9,7 @@ function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/messenger/t" exact component={Messenger} />
+      <Route path="/messenger/t" component={Messenger} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={SignUp} />
     </Switch>

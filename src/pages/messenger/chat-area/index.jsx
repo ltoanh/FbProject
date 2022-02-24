@@ -52,10 +52,10 @@ function ChatArea() {
   useEffect(() => {
     let unsubscribe = db
       .collection("users")
-      .doc(user.uid)
+      .doc(user?.uid)
       .collection("messenger")
       .doc(id)
-      .onSnapshot((snapshot) => setMID(snapshot.data().messenger));
+      .onSnapshot((snapshot) => setMID(snapshot.data()?.messenger));
     return () => unsubscribe();
   }, [id, user]);
   // load messenger
