@@ -41,6 +41,7 @@ function Posts() {
           content={post.data.content}
           imageSrc={post.data.imageSrc}
           setOpenSlackbar={setOpenSlackbar}
+          uid={post.data.uid}
         />
       ))}
       {/* alter success delete post */}

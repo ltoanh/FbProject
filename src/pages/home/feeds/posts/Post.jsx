@@ -3,12 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import {
-  Avatar,
-  IconButton,
-  Menu,
-  MenuItem
-} from "@mui/material";
+import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import { db } from "config/firebaseConfig";
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
@@ -21,7 +16,16 @@ import InputComment from "./comment/InputComment";
 const ITEM_HEIGHT = 48;
 
 function Post(props) {
-  const { postId, profileSrc, username, timestamp, content, imageSrc, setOpenSlackbar } = props;
+  const {
+    postId,
+    profileSrc,
+    username,
+    timestamp,
+    content,
+    imageSrc,
+    setOpenSlackbar,
+    uid,
+  } = props;
 
   const user = useSelector(selectorUser);
 
@@ -95,7 +99,7 @@ function Post(props) {
         content: userComment,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         username: user?.name,
-        profileSrc: user.profileSrc,
+        profileSrc: user?.profileSrc,
         like: 0,
       })
       .then(setUserComment(""));
@@ -110,7 +114,6 @@ function Post(props) {
   const handleClosePostMenu = () => {
     setAnchorEl(null);
   };
-  
 
   // delete post
   const handleClickDeletePost = () => {
@@ -139,38 +142,41 @@ function Post(props) {
             </p>
           </div>
         </div>
-        <div>
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={openPostMenu ? "long-menu" : undefined}
-            aria-expanded={openPostMenu ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleClickPostMenu}
-          >
-            <MoreHorizIcon />
-          </IconButton>
-          <Menu
-            id="long-menu"
-            MenuListProps={{
-              "aria-labelledby": "long-button",
-            }}
-            anchorEl={anchorEl}
-            open={openPostMenu}
-            onClose={handleClosePostMenu}
-            PaperProps={{
-              style: {
-                maxHeight: ITEM_HEIGHT * 4.5,
-                width: "20ch",
-              },
-            }}
-          >
-            <MenuItem onClick={handleClickDeletePost} disableRipple>
-              <DeleteIcon />
-              Xóa
-            </MenuItem>
-          </Menu>
-        </div>
+        {/* more action */}
+        {uid === user.uid && (
+          <div>
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls={openPostMenu ? "long-menu" : undefined}
+              aria-expanded={openPostMenu ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={handleClickPostMenu}
+            >
+              <MoreHorizIcon />
+            </IconButton>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={openPostMenu}
+              onClose={handleClosePostMenu}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              <MenuItem onClick={handleClickDeletePost} disableRipple>
+                <DeleteIcon />
+                Xóa
+              </MenuItem>
+            </Menu>
+          </div>
+        )}
       </div>
       <div className="post__content">
         {content && <p>{content}</p>}

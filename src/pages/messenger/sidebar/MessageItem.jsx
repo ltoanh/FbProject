@@ -24,10 +24,10 @@ function MessageItem({ item }) {
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             variant="dot"
           >
-            <Avatar alt={userSender.name} src={userSender.profileSrc} />
+            <Avatar alt={userSender?.name} src={userSender?.profileSrc} />
             <span
               className={
-                userSender.online
+                userSender?.online
                   ? `active-user badge-active`
                   : `inactive-user badge-active`
               }
@@ -35,7 +35,7 @@ function MessageItem({ item }) {
           </Badge>
         </ListItemAvatar>
         <div className="sidebar__message__content">
-          <h5 className="sidebar__message__content--name">{userSender.name}</h5>
+          <h5 className="sidebar__message__content--name">{userSender?.name}</h5>
           <div className="sidebar__message__preview">
             {item.uidLatestUserMessage === user.uid && <strong>Bạn:</strong>}
             {item.uidLatestUserMessage === user.uid && item.isSeen && (
@@ -49,8 +49,8 @@ function MessageItem({ item }) {
                   {item.latestMessage}
                 </p>
                 <Avatar
-                  alt={userSender.name}
-                  src={userSender.profileSrc}
+                  alt={userSender?.name}
+                  src={userSender?.profileSrc}
                   sx={{ width: ".75rem", height: ".75rem" }}
                 />
               </>
