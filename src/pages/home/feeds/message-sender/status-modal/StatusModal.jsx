@@ -13,9 +13,11 @@ import {
 import { db, storage } from "config/firebaseConfig";
 import firebase from "firebase";
 import React, { useEffect, useRef, useState } from "react";
+import ReactQuill from "react-quill";
 import { useSelector } from "react-redux";
 import { selectorUser } from "slice/userSlice";
 import "./status-modal.css";
+import 'react-quill/dist/quill.snow.css'; 
 
 const StatusModal = ({ open, handleClose }) => {
   const user = useSelector(selectorUser);
@@ -49,8 +51,7 @@ const StatusModal = ({ open, handleClose }) => {
   };
 
   // catch content user type status to enable button upload
-  const handleChangeStatusValue = (e) => {
-    let value = e.target.value;
+  const handleChangeStatusValue = (value) => {
     setStatusValue(value);
 
     if (value !== "") {
@@ -112,7 +113,7 @@ const StatusModal = ({ open, handleClose }) => {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
           setProgressUploading(progress);
-          
+
           setIsUploading(true);
           setDisableButton(true);
         },
@@ -154,7 +155,7 @@ const StatusModal = ({ open, handleClose }) => {
       })
       .then((res) => {
         db.collection("posts").doc(res.id).collection("reactions").add({
-          like: 0
+          like: 0,
         });
       });
 
@@ -175,18 +176,7 @@ const StatusModal = ({ open, handleClose }) => {
           </Typography>
           <div className="status">
             <Avatar src={user.profileSrc} />
-            <TextareaAutosize
-              minRows={3}
-              placeholder="Bạn đang nghĩ gì thế?"
-              maxRows={10}
-              style={{
-                width: "100%",
-                border: "1px solid #ebebeb",
-                padding: ".5rem",
-              }}
-              value={statusValue}
-              onChange={handleChangeStatusValue}
-            />
+            <ReactQuill value={statusValue} onChange={handleChangeStatusValue} />
           </div>
           {/* preview image */}
           {selectedImage && (
