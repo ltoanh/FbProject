@@ -4,7 +4,7 @@ import Widgets from "components/widgets";
 
 import React from "react";
 import "./home.css";
-import withAuth from "hooks/withAuth";
+import withAuth from "hoc/withAuth";
 
 function Home() {
   return (
