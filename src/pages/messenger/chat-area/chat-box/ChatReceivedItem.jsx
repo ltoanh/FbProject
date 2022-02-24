@@ -15,11 +15,11 @@ function ChatReceivedItem({ message }) {
   return (
     <div className="chat__user row__user">
       <Avatar
-        src={userSender.profileSrc}
+        src={userSender?.profileSrc}
         sx={{ width: "35px", height: "35px" }}
       />
       <div className="chat__user__content">
-        <h5 className="chat__user__header">{userSender.name}</h5>
+        <h5 className="chat__user__header">{userSender?.name}</h5>
         <div className="row">
           <div className="chat chat__left">
             <div className="chat__detail">

@@ -150,6 +150,7 @@ const StatusModal = ({ open, handleClose }) => {
         profileSrc: user.profileSrc,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         username: user?.name,
+        uid: user.uid,
       })
       .then((res) => {
         db.collection("posts").doc(res.id).collection("reactions").add({
