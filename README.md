@@ -2,6 +2,7 @@
 # FACEBOOK - CLONE
 
 project to learn React.js, Redux Toolkit and Firebase
+![fb-clone](https://github.com/whiwf/fb-clone/blob/dev/public/Desktop%20-%204.png)
 
 ## Features
 
